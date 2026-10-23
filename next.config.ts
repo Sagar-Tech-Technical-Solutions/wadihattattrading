@@ -5,6 +5,14 @@ const nextConfig: NextConfig = {
   experimental: {
     agentFeedback: true,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "lailtextiles.com",
+      },
+    ],
+  },
   allowedDevOrigins: ["192.168.1.99"],
   cacheComponents: true,
   partialPrefetching: true,
