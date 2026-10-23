@@ -1,11 +1,12 @@
 import React from "react";
 import Link from "next/link";
+import { Reveal } from "@/layouts/reveal";
 
 export default function AboutCta() {
   return (
     <section className="w-full bg-white py-8 lg:py-16 px-4 md:px-8 lg:px-16 overflow-hidden">
       <div className="max-w-[1400px] mx-auto">
-        <div className="rounded-xl p-8 sm:p-12 lg:p-16 bg-neutral-50/80 border border-neutral-200/90 text-neutral-900 shadow-sm">
+        <Reveal variant="scale" className="rounded-xl p-8 sm:p-12 lg:p-16 bg-neutral-50/80 border border-neutral-200/90 text-neutral-900 shadow-sm">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Left Column: Heading & Narrative */}
             <div className="lg:col-span-7 space-y-4">
@@ -56,7 +57,7 @@ export default function AboutCta() {
               </a>
             </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

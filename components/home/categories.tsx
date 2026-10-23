@@ -69,7 +69,11 @@ export default function CategoriesSection() {
         </Reveal>
 
         {/* Embla Categories Slider Container with Center Left and Right Arrows */}
-        <div className="relative group/slider mt-6 lg:mt-8">
+        <Reveal
+          delay={120}
+          variant="up"
+          className="relative group/slider mt-6 lg:mt-8"
+        >
           {/* Center-Left Arrow Button */}
           <button
             type="button"
@@ -92,7 +96,7 @@ export default function CategoriesSection() {
                 >
                   <Link
                     href={`/collection/${cat.slug}`}
-                    className="group relative block aspect-[3/4] w-full overflow-hidden rounded-xl bg-neutral-100 transition-all duration-500"
+                    className="group relative block aspect-[3/4] w-full overflow-hidden rounded-sm bg-neutral-100 transition-all duration-500"
                   >
                     {/* Fabric Image */}
                     <Image
@@ -106,7 +110,7 @@ export default function CategoriesSection() {
                     />
 
                     {/* Soft Bottom Gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent transition-opacity duration-300 pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/15 to-transparent transition-opacity duration-300 pointer-events-none" />
 
                     {/* Card Bottom: Category Name & Explore Action */}
                     <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6 z-10 flex flex-col justify-end">
@@ -137,7 +141,7 @@ export default function CategoriesSection() {
           >
             <span className="text-base select-none">→</span>
           </button>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

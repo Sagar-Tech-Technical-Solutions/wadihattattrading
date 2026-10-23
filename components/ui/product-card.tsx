@@ -20,7 +20,7 @@ export default function ProductCard({
       className={`group block cursor-pointer ${className}`}
     >
       {/* Square Product Image Frame */}
-      <div className="relative aspect-[4/4.75] w-full overflow-hidden bg-neutral-100 rounded-xl">
+      <div className="relative aspect-[4/4.75] w-full overflow-hidden bg-neutral-100 rounded-sm">
         {/* Default Primary Image */}
         <Image
           src={product.imagePrimary}

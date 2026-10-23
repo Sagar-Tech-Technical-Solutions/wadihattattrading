@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import { Reveal } from "@/layouts/reveal";
 
 const INQUIRY_TYPES = [
   "Sourcing",
@@ -46,19 +47,22 @@ export default function ContactHeroForm() {
       {/* Background Architectural/Fabric Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/143215124874.jpg.jpeg"
+          src="/Modern Fabric Showroom with Warm Wood Accents.webp"
           alt="Wadi Hattat Trading Luxury Textiles"
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center filter brightness-[0.45] contrast-[1.05]"
+          className="object-cover object-center filter brightness-[0.2] contrast-[1]"
         />
       </div>
 
       {/* Foreground Grid Content */}
       <div className="relative z-10 p-6 sm:p-10 lg:p-14 xl:p-16 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
         {/* Left Column: Headline, Description & 2x2 Contact Details */}
-        <div className="lg:col-span-6 flex flex-col justify-between h-full space-y-8 lg:space-y-12">
+        <Reveal
+          variant="up"
+          className="lg:col-span-6 flex flex-col justify-between h-full space-y-8 lg:space-y-12"
+        >
           <div>
             <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[2.5rem] font-normal leading-[1.25] tracking-tight">
               You have questions,
@@ -66,10 +70,10 @@ export default function ContactHeroForm() {
               We have answers
             </h1>
             <p className="mt-5 text-sm tracking-wide text-neutral-300 font-light leading-relaxed max-w-xl">
-              A distinguished textile destination in Dubai. Seamless
-              experiences you won&apos;t find anywhere else thoughtfully
-              curated Japanese Nida, textured crepes, and sartorial weaves
-              for couture houses and wholesale partners worldwide.
+              A distinguished textile destination in Dubai. Seamless experiences
+              you won&apos;t find anywhere else thoughtfully curated Japanese
+              Nida, textured crepes, and sartorial weaves for couture houses and
+              wholesale partners worldwide.
             </p>
           </div>
 
@@ -119,9 +123,7 @@ export default function ContactHeroForm() {
                   </a>
                 </li>
                 <li>
-                  <span className="text-neutral-400">
-                    LinkedIn • Facebook
-                  </span>
+                  <span className="text-neutral-400">LinkedIn • Facebook</span>
                 </li>
               </ul>
             </div>
@@ -168,10 +170,14 @@ export default function ContactHeroForm() {
               </p>
             </div>
           </div>
-        </div>
+        </Reveal>
 
         {/* Right Column: Floating Pristine White Form Card */}
-        <div className="lg:col-span-6 flex justify-center lg:justify-end">
+        <Reveal
+          delay={150}
+          variant="scale"
+          className="lg:col-span-6 flex justify-center lg:justify-end"
+        >
           <div className="w-full max-w-lg bg-white text-neutral-900 rounded-xl shadow-2xl p-6 sm:p-8 lg:p-9 border border-neutral-100">
             <div className="mb-6">
               <h3 className="font-display text-2xl sm:text-[1.65rem] font-normal text-neutral-900">
@@ -204,8 +210,8 @@ export default function ContactHeroForm() {
                     Inquiry Received
                   </h4>
                   <p className="text-xs text-neutral-500 font-light mt-1">
-                    Thank you for reaching out. Our textile advisors in Dubai will
-                    contact you promptly.
+                    Thank you for reaching out. Our textile advisors in Dubai
+                    will contact you promptly.
                   </p>
                 </div>
                 <div className="pt-2 flex flex-col gap-2">
@@ -389,7 +395,7 @@ export default function ContactHeroForm() {
               </form>
             )}
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

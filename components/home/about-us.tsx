@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { Reveal } from "@/layouts/reveal";
 
 export default function AboutUsSection() {
   return (
@@ -13,7 +14,7 @@ export default function AboutUsSection() {
         {/* TOP ROW: EYEBROW, HEADLINE, NARRATIVE & EXPLORE MORE BUTTON   */}
         {/* ============================================================== */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 lg:gap-12 pb-6 lg:pb-6">
-          <div className="max-w-3xl">
+          <Reveal className="max-w-3xl" variant="up">
             {/* Eyebrow tag */}
             <span className="inline-block text-xs sm:text-[13px] font-mono uppercase tracking-[0.22em] text-neutral-400 mb-3 sm:mb-4">
               WHO WE ARE
@@ -37,19 +38,11 @@ export default function AboutUsSection() {
                 supplying high-quality fabrics and textile products both locally
                 within the UAE market and to business partners across the globe.
               </p>
-              {/* <p>
-                Founded on the principles of reliability, integrity, and
-                exceptional quality, Wadi Hattat Trading has established itself
-                as a key player in the regional and international textile supply
-                chain. From local wholesale distribution to global sourcing, we
-                bridge the gap between world-class textile manufacturers and
-                diverse markets.
-              </p> */}
             </div>
-          </div>
+          </Reveal>
 
           {/* Right: Clean Action Button */}
-          <div className="lg:pb-1 shrink-0">
+          <Reveal delay={120} variant="fade" className="lg:pb-1 shrink-0">
             <Link
               href="/about-us"
               className="px-5 sm:px-7 py-2.5 sm:py-3 inline-flex items-center gap-2 bg-gold text-dark-blue text-xs uppercase tracking-wider hover:bg-white hover:text-dark-blue border border-transparent hover:border-neutral-200 font-semibold transition-all duration-300 rounded-full shadow-sm hover:shadow-md cursor-pointer group"
@@ -59,7 +52,7 @@ export default function AboutUsSection() {
                 →
               </span>
             </Link>
-          </div>
+          </Reveal>
         </div>
 
         {/* ============================================================== */}
@@ -67,15 +60,19 @@ export default function AboutUsSection() {
         {/* ============================================================== */}
         <div className="pt-4 lg:pt-14 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
           {/* Column 1: Draped Luxury Textile + Stats Below (Narrower ~ 35%) */}
-          <div className="lg:col-span-5 xl:col-span-4 flex flex-col gap-4 sm:gap-5">
+          <Reveal
+            delay={100}
+            variant="up"
+            className="lg:col-span-5 xl:col-span-4 flex flex-col gap-4 sm:gap-5"
+          >
             {/* First Image */}
             <div className="relative rounded-xl overflow-hidden min-h-[240px] sm:min-h-[300px] lg:min-h-[360px] flex-1 bg-neutral-100 shadow-sm group">
               <Image
-                src="/fabrics/cloth-1.jpg"
+                src="/Modern Fabric Showroom with Warm Wood Accents.webp"
                 alt="Wadi Hattat Luxury Fabric Weave"
                 fill
-                sizes="(max-width: 1024px) 100vw, 35vw"
-                className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover object-center transition-transform duration-700 ease-out"
               />
               {/* Ambient subtle vignette */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent pointer-events-none" />
@@ -103,20 +100,24 @@ export default function AboutUsSection() {
                 </div>
               </div>
             </div>
-          </div>
+          </Reveal>
 
           {/* Card 2: Dubai Showroom (Wider Card ~ 65%) */}
-          <div className="lg:col-span-7 xl:col-span-8 relative rounded-xl overflow-hidden min-h-[280px] sm:min-h-[420px] lg:min-h-[460px] bg-neutral-100 shadow-sm group">
+          <Reveal
+            delay={200}
+            variant="up"
+            className="lg:col-span-7 xl:col-span-8 relative rounded-xl overflow-hidden  min-h-[230px] sm:min-h-[420px] lg:min-h-[460px] bg-neutral-100 shadow-sm group"
+          >
             <Image
-              src="/143215124874.jpg.jpeg"
+              src="/Wadi Hattat Textile Storefront.webp"
               alt="Wadi Hattat Trading Dubai Showroom"
               fill
               sizes="(max-width: 1024px) 100vw, 65vw"
               priority={false}
-              className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105 filter brightness-[0.92]"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent pointer-events-none" />
-          </div>
+              className="object-cover object-center transition-transform duration-700 ease-out  filter brightness-[0.92]"
+            ></Image>
+            {/* <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent pointer-events-none" /> */}
+          </Reveal>
         </div>
       </div>
     </section>

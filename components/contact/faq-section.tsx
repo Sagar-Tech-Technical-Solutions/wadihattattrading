@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { FAQS, type FAQItem } from "@/data/faqs";
+import { Reveal } from "@/layouts/reveal";
 
 interface FaqSectionProps {
   eyebrow?: string;
@@ -35,7 +36,7 @@ export default function FaqSection({
       <div className="max-w-[1400px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
           {/* Left Column: Heading & Subtitle */}
-          <div className="lg:col-span-5 lg:sticky lg:top-28">
+          <Reveal variant="up" className="lg:col-span-5 lg:sticky lg:top-28">
             <span className="block text-[11px] font-semibold uppercase tracking-[0.24em] text-[#ddaf4d] mb-2">
               {eyebrow}
             </span>
@@ -45,15 +46,16 @@ export default function FaqSection({
             <p className="mt-4 text-xs sm:text-sm text-neutral-500 font-light leading-relaxed max-w-sm">
               {subtitle}
             </p>
-          </div>
+          </Reveal>
 
           {/* Right Column: Numbered 01 - 06 Accordion */}
           <div className="lg:col-span-7 divide-y divide-neutral-200 border-t border-b border-neutral-200">
-            {items.map((faq) => {
+            {items.map((faq, index) => {
               const isOpen = openFaq === faq.number;
 
               return (
-                <div key={faq.number} className="py-5 sm:py-6">
+                <Reveal key={faq.number} delay={index * 60} variant="up">
+                  <div className="py-5 sm:py-6">
                   <button
                     type="button"
                     onClick={() => toggleFaq(faq.number)}
@@ -118,6 +120,7 @@ export default function FaqSection({
                     </p>
                   </div>
                 </div>
+                </Reveal>
               );
             })}
           </div>

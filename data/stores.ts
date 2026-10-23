@@ -4,6 +4,8 @@ export interface StoreLocation {
   tag: string;
   area: string;
   address: string;
+  image: string;
+  images: string[];
   phone: string;
   phoneFormatted: string;
   whatsapp: string;
@@ -22,6 +24,8 @@ export const STORES: StoreLocation[] = [
     tag: "Main Showroom",
     area: "Al Sabkha, Deira",
     address: "9 8th St - Al Sabkha - Deira - Dubai - United Arab Emirates",
+    image: "/stores/Wadi Hattat trading co llc.webp",
+    images: ["/stores/Wadi Hattat trading co llc.webp"],
     phone: "+971526474325",
     phoneFormatted: "+971 52 647 4325",
     whatsapp: "971526474325",
@@ -40,6 +44,8 @@ export const STORES: StoreLocation[] = [
     area: "Bur Dubai / Al Fahidi",
     address:
       "Shop 9 Al Shawab building Souq al kabeer - Bur Dubai - Al Fahidi - Dubai - United Arab Emirates",
+    image: "/stores/Wadi hattat trading co llc - br 4.webp",
+    images: ["/stores/Wadi hattat trading co llc - br 4.webp"],
     phone: "+971526474325",
     phoneFormatted: "+971 52 647 4325",
     whatsapp: "971526474325",
@@ -58,6 +64,8 @@ export const STORES: StoreLocation[] = [
     area: "Al Souq Al Kabeer",
     address:
       "777W+XHF - 4 54a St - Al Souq Al Kabeer - Al Fahidi - Dubai - United Arab Emirates",
+    image: "/stores/Wadi Hattat Trading.webp",
+    images: ["/stores/Wadi Hattat Trading.webp"],
     phone: "+97143536515",
     phoneFormatted: "+971 4 353 6515",
     whatsapp: "971526474325",
@@ -75,6 +83,8 @@ export const STORES: StoreLocation[] = [
     tag: "Branch 2",
     area: "Al Sabkha, Deira",
     address: "13 8th St - Al Sabkha - Deira - Dubai - United Arab Emirates",
+    image: "/stores/Wadi Hattat trading - Branch 2.webp",
+    images: ["/stores/Wadi Hattat trading - Branch 2.webp"],
     phone: "+97143536515",
     phoneFormatted: "+971 4 353 6515",
     whatsapp: "971526474325",

@@ -8,7 +8,7 @@ import ProductCard from "@/components/ui/product-card";
 
 export default function PremiumCollection() {
   // Take the first 4 featured products for the homepage
-  const featuredProducts = PRODUCTS.slice(0, 10);
+  const featuredProducts = PRODUCTS.slice(0, 8);
 
   return (
     <section
@@ -36,7 +36,7 @@ export default function PremiumCollection() {
         </Reveal>
 
         {/* Product Cards Grid using Reusable ProductCard Component */}
-        <div className="mt-6 lg:mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-x-3 gap-y-8 lg:gap-x-4 lg:gap-y-8">
+        <div className="mt-6 lg:mt-10 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-x-3 gap-y-8 lg:gap-x-4 lg:gap-y-8">
           {featuredProducts.map((product, idx) => (
             <Reveal key={product.id} delay={100 + idx * 70}>
               <ProductCard product={product} />

@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import { Reveal } from "@/layouts/reveal";
 
 export default function AboutHeritage() {
   return (
@@ -10,24 +11,35 @@ export default function AboutHeritage() {
       <div className="max-w-[1400px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
           {/* Left Column: Narrative */}
-          <div className="lg:col-span-7 space-y-6">
+          <Reveal className="lg:col-span-7 space-y-6" variant="up">
             <span className="inline-block text-xs sm:text-[13px] font-mono uppercase tracking-[0.22em] text-neutral-400 mb-3 sm:mb-4">
               OUR HERITAGE
             </span>
 
-            <h2 className="text-[2rem] sm:text-4xl md:text-5xl lg:text-[45px] font-normal tracking-tight text-neutral-900 leading-[1.2] mb-6">
+            <h2 className="font-display text-[1.7rem] md:text-6xl lg:text-[2rem] text-black/90 font-normal leading-[1.2]">
               Pioneering the Global Textile Trade
             </h2>
 
             <div className="space-y-4 text-neutral-600 text-sm sm:text-base leading-relaxed font-light">
               <p>
-                Over 20 years ago, when the abaya fabric market was almost exclusively dominated by imports from Korea and Indonesia, <strong className="font-medium text-neutral-800">Wadi Hattat Trading</strong> was among the first companies to introduce Chinese abaya fabrics to Dubai.
+                Over 20 years ago, when the abaya fabric market was almost
+                exclusively dominated by imports from Korea and Indonesia,{" "}
+                <strong className="font-medium text-neutral-800">
+                  Wadi Hattat Trading
+                </strong>{" "}
+                was among the first companies to introduce Chinese abaya fabrics
+                to Dubai.
               </p>
               <p>
-                By recognizing the potential, quality, and versatility of textile mills in China early on, we helped transform the market—making Chinese fabrics famous, accessible, and widely appreciated both across the region and globally.
+                By recognizing the potential, quality, and versatility of
+                textile mills in China early on, we helped transform the
+                market—making Chinese fabrics famous, accessible, and widely
+                appreciated both across the region and globally.
               </p>
               <p>
-                Today, that pioneering spirit continues to drive our business as we stay ahead of industry trends and deliver innovation to our clients.
+                Today, that pioneering spirit continues to drive our business as
+                we stay ahead of industry trends and deliver innovation to our
+                clients.
               </p>
             </div>
 
@@ -60,17 +72,21 @@ export default function AboutHeritage() {
                 </div>
               </div>
             </div>
-          </div>
+          </Reveal>
 
           {/* Right Column: Imagery with Floating Badge */}
-          <div className="lg:col-span-5 relative">
+          <Reveal
+            delay={180}
+            variant="scale"
+            className="lg:col-span-5 relative"
+          >
             <div className="relative rounded-xl overflow-hidden min-h-[380px] sm:min-h-[460px] bg-neutral-100 shadow-xl group">
               <Image
-                src="/fabrics/cloth-1.jpg"
+                src="/Modern Fabric Showroom Reception.webp"
                 alt="Wadi Hattat Textile Heritage"
                 fill
-                sizes="(max-width: 1024px) 100vw, 40vw"
-                className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                sizes="(max-width: 1024px) 100vw, 60vw"
+                className="object-cover object-center transition-transform duration-700 ease-out"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
 
@@ -80,11 +96,12 @@ export default function AboutHeritage() {
                   Established in Dubai
                 </span>
                 <p className="text-xs sm:text-sm font-medium text-neutral-900 leading-snug">
-                  Pioneering regional trade &amp; bringing international textile innovation to the UAE.
+                  Pioneering regional trade &amp; bringing international textile
+                  innovation to the UAE.
                 </p>
               </div>
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

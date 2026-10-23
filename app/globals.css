@@ -106,15 +106,47 @@ h6,
 /* Scroll reveal utilities */
 .reveal {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(var(--reveal-y, 28px)) translateX(var(--reveal-x, 0px)) scale(var(--reveal-scale, 1));
+  transition: opacity var(--reveal-duration, 0.85s) cubic-bezier(0.16, 1, 0.3, 1),
+              transform var(--reveal-duration, 0.85s) cubic-bezier(0.16, 1, 0.3, 1);
   transition-delay: var(--reveal-delay, 0ms);
   will-change: opacity, transform;
 }
 
 .reveal.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) translateX(0) scale(1);
+}
+
+.reveal[data-reveal-variant="fade"] {
+  --reveal-y: 0px;
+}
+
+.reveal[data-reveal-variant="down"] {
+  --reveal-y: -28px;
+}
+
+.reveal[data-reveal-variant="left"] {
+  --reveal-x: -32px;
+  --reveal-y: 0px;
+}
+
+.reveal[data-reveal-variant="right"] {
+  --reveal-x: 32px;
+  --reveal-y: 0px;
+}
+
+.reveal[data-reveal-variant="scale"] {
+  --reveal-y: 18px;
+  --reveal-scale: 0.94;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }
 
 @keyframes slideUp {

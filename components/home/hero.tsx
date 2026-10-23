@@ -40,16 +40,15 @@ const slides: Slide[] = [
     image: "/hero.jpg",
     alt: "Luxury draped midnight silk",
   },
-  {
-    id: 2,
-    image: "/143215124874.jpg.jpeg",
-    alt: "Luxury draped midnight silk",
-  },
+  // {
+  //   id: 2,
+  //   image: "/Wadi Hattat Textile Storefront.webp",
+  //   alt: "Luxury draped midnight silk",
+  // },
 ];
 
 const SLIDE_DURATION = 6000;
 const CYCLE_INTERVAL = 300; // 300ms per image
-
 // In-memory flag: tracks completion within the current page lifecycle
 let hasCompletedEntranceOnce = false;
 
@@ -279,6 +278,19 @@ export default function Homehero() {
         setLoaderState("complete");
         hasCompletedEntranceOnce = true;
         document.body.style.overflow = "";
+        if (sheetContainerRef.current) {
+          gsap.set(sheetContainerRef.current, {
+            left: 0,
+            top: 0,
+            xPercent: 0,
+            yPercent: 0,
+            x: 0,
+            y: 0,
+            width: "100%",
+            height: "100%",
+            clearProps: "transform",
+          });
+        }
       });
     };
 
@@ -361,7 +373,7 @@ export default function Homehero() {
   const isComplete = loaderState === "complete";
 
   return (
-    <section className="min-h-[400px] h-[75vh] lg:h-screen w-full relative flex flex-col justify-end overflow-hidden pb-8 lg:pb-16 px-4 md:px-8 lg:px-16">
+    <section className="min-h-[400px] h-[75vh] lg:h-screen w-full relative flex flex-col justify-end overflow-hidden pb-8 lg:pb-16 px-4 md:px-8 lg:px-16 bg-black border-none outline-none">
       {/* 1. Pure White Canvas Overlay (Behind cloth sheet, active during loader) */}
       {!isComplete && (
         <div
@@ -371,20 +383,24 @@ export default function Homehero() {
       )}
 
       {/* 2. Centered Cloth Sheet (aspect-[4/2], popping tilt animation with 3D perspective) */}
-      <div className="absolute inset-0 w-full h-full overflow-hidden z-25 pointer-events-none [perspective:1000px]">
+      <div
+        className={`absolute inset-0 w-full h-full overflow-hidden z-25 pointer-events-none ${
+          isComplete ? "" : "[perspective:1000px]"
+        }`}
+      >
         <div
           ref={sheetContainerRef}
-          className={`absolute left-1/2 top-1/2 overflow-hidden bg-neutral-900 rounded-none shadow-none border-0 ${
+          className={`absolute overflow-hidden rounded-none shadow-none border-none outline-none ${
             isComplete
-              ? "w-full h-full aspect-auto"
-              : "aspect-[4/2] w-[270px] sm:w-[330px] md:w-[390px]"
+              ? "inset-0 w-full h-full aspect-auto"
+              : "left-1/2 top-1/2 aspect-[4/2.5] w-[270px] sm:w-[330px] md:w-[350px]"
           }`}
           style={
             isComplete
               ? {
-                  left: "50%",
-                  top: "50%",
-                  transform: "translate(-50%, -50%)",
+                  left: 0,
+                  top: 0,
+                  transform: "none",
                   width: "100%",
                   height: "100%",
                   opacity: 1,
@@ -420,7 +436,7 @@ export default function Homehero() {
                     muted
                     loop
                     playsInline
-                    className="w-full h-full object-cover object-center"
+                    className="w-full h-full object-cover object-center scale-[1.02]"
                   />
                 ) : (
                   <Image
@@ -429,7 +445,7 @@ export default function Homehero() {
                     fill
                     priority={index === 0}
                     sizes="100vw"
-                    className="w-full h-full object-cover object-center select-none"
+                    className="w-full h-full object-cover object-center select-none scale-[1.02]"
                   />
                 )}
               </div>

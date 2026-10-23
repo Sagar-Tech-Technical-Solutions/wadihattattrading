@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import AboutHero from "@/components/about/about-hero";
+import AboutIntro from "@/components/about/about-intro";
 import AboutHeritage from "@/components/about/about-heritage";
 import WhatWeDoSection from "@/components/home/what-we-do";
 import AboutWhyUs from "@/components/about/about-why-us";
@@ -24,10 +25,13 @@ export const metadata: Metadata = {
 export default function AboutUsPage() {
   return (
     <main className="relative w-full overflow-hidden">
-      {/* 1. Hero / Who We Are (Full Screen with Transparent Header) */}
+      {/* 1. Hero / Clean Luxury Storefront Visual */}
       <AboutHero />
 
-      {/* 2. Our Heritage Story */}
+      {/* 2. Who We Are / Company Introduction */}
+      <AboutIntro />
+
+      {/* 3. Our Heritage Story */}
       <AboutHeritage />
 
       {/* 3. What We Do */}

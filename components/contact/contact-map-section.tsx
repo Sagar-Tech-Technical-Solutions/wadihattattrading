@@ -2,12 +2,14 @@
 
 import React, { useState } from "react";
 import { STORES, type StoreLocation } from "@/data/stores";
+import { Reveal } from "@/layouts/reveal";
 
 export default function ContactMapSection() {
   const [selectedStore, setSelectedStore] = useState<StoreLocation>(STORES[0]);
 
   return (
-    <section className="relative rounded-xl overflow-hidden border border-neutral-200/90 shadow-md">
+    <Reveal variant="up" className="relative rounded-xl overflow-hidden border border-neutral-200/90 shadow-md">
+      <section className="relative w-full">
       {/* Embedded Interactive Map */}
       <div className="w-full h-[420px] sm:h-[500px] lg:h-[540px] bg-neutral-100">
         <iframe
@@ -102,6 +104,7 @@ export default function ContactMapSection() {
           </a>
         </div>
       </div>
-    </section>
+      </section>
+    </Reveal>
   );
 }
