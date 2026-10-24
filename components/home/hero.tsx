@@ -221,16 +221,16 @@ export default function Homehero() {
         );
       }
 
-      // 3. Fade out white backdrop concurrently
+      // 3. Fade out backdrop ONLY AFTER hero slide is fully fit
       if (whiteBackdropRef.current) {
         tl.to(
           whiteBackdropRef.current,
           {
             opacity: 0,
-            duration: 0.9,
-            ease: "power2.inOut",
+            duration: 0.35,
+            ease: "power2.out",
           },
-          "<0.1",
+          ">",
         );
       }
 
@@ -373,7 +373,11 @@ export default function Homehero() {
   const isComplete = loaderState === "complete";
 
   return (
-    <section className="min-h-[400px] h-[75vh] lg:h-screen w-full relative flex flex-col justify-end overflow-hidden pb-8 lg:pb-16 px-4 md:px-8 lg:px-16 bg-black border-none outline-none">
+    <section
+      className={`min-h-[400px] h-[75vh] lg:h-screen w-full relative flex flex-col justify-end overflow-hidden pb-8 lg:pb-16 px-4 md:px-8 lg:px-16 ${
+        isComplete ? "bg-black" : "bg-[#FAF6F2]"
+      } border-none outline-none`}
+    >
       {/* 1. Pure White Canvas Overlay (Behind cloth sheet, active during loader) */}
       {!isComplete && (
         <div
