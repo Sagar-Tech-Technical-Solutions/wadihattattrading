@@ -15,8 +15,55 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Wadi Hattat Trading",
-  description: "Wadi Hattat Trading Co. L.L.C. - Dubai, UAE",
+  metadataBase: process.env.BASE_URL ? new URL(process.env.BASE_URL) : undefined,
+  title: {
+    default: "Wadi Hattat Trading | Luxury Textile Trading in Dubai",
+    template: "%s | Wadi Hattat Trading",
+  },
+  description:
+    "Wadi Hattat Trading is a premier textile trading house in Dubai. Sourcing authentic Japanese Nida, textured crepes, and luxury abaya fabrics across 4 Dubai showrooms and global wholesale distribution.",
+  alternates: {
+    canonical: "./",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_AE",
+    url: process.env.BASE_URL,
+    siteName: "Wadi Hattat Trading",
+    title: "Wadi Hattat Trading | Luxury Textile Trading in Dubai",
+    description:
+      "Premier textile trading company in Dubai. Sourcing authentic Japanese Nida, textured crepes, and luxury abaya fabrics.",
+    images: [
+      {
+        url: "/Wadi Hattat Textile Storefront.webp",
+        width: 1200,
+        height: 630,
+        alt: "Wadi Hattat Trading Dubai",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Wadi Hattat Trading | Luxury Textile Trading in Dubai",
+    description:
+      "Premier textile trading company in Dubai. Japanese Nida, crepes, and luxury abaya fabrics.",
+    images: ["/Wadi Hattat Textile Storefront.webp"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  icons: {
+    icon: [
+      { url: "/favicon/favicon.ico" },
+      { url: "/favicon/icon0.svg", type: "image/svg+xml" },
+      { url: "/favicon/icon1.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: [
+      { url: "/favicon/apple-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
+  manifest: "/favicon/manifest.json",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

@@ -9,9 +9,26 @@ import StoresSection from "@/components/common/stores-section";
 import AboutCta from "@/components/about/about-cta";
 
 export const metadata: Metadata = {
-  title: "About Us | Wadi Hattat Trading - Luxury Textile Trading in Dubai",
+  title: "About Us | Luxury Textile Trading in Dubai",
   description:
-    "Founded on reliability, integrity, and exceptional quality, Wadi Hattat Trading is a premier textile trading company in Dubai specializing in local supply and global trade.",
+    "Founded on reliability, integrity, and exceptional quality, Wadi Hattat Trading is a premier textile trading company in Dubai with over 20 years of market heritage.",
+  alternates: {
+    canonical: "/about-us",
+  },
+  openGraph: {
+    title: "About Us | Wadi Hattat Trading",
+    description:
+      "Pioneering global textile trade with over 20 years of market heritage in Dubai.",
+    url: "/about-us",
+    images: [
+      {
+        url: "/Modern Fabric Showroom Reception.webp",
+        width: 1200,
+        height: 630,
+        alt: "Wadi Hattat Trading Showroom",
+      },
+    ],
+  },
   keywords: [
     "Wadi Hattat Trading",
     "About Wadi Hattat",

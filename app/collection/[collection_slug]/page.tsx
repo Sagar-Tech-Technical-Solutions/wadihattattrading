@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { getCategoryBySlug, getCategoryProducts, CATEGORIES } from "@/data/products";
 import CollectionClient from "@/components/collection/collection-client";
 
@@ -13,6 +14,39 @@ export function generateStaticParams() {
 interface PageProps {
   params: Promise<{ collection_slug: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { collection_slug } = await params;
+  const slug = collection_slug?.toLowerCase() || "all";
+  const category = getCategoryBySlug(slug);
+
+  const title = category ? `${category.name} Fabric Collection` : "All Fabric Collections";
+  const description = category
+    ? `Explore premium ${category.name} fabrics at Wadi Hattat Trading Dubai. Wholesale rolls and retail cuts available.`
+    : "Browse our complete catalog of luxury abaya fabrics, Japanese Nida, and textured crepes in Dubai.";
+  const image = category?.image || "/Wadi Hattat Textile Storefront.webp";
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `/collection/${slug}`,
+    },
+    openGraph: {
+      title: `${title} | Wadi Hattat Trading`,
+      description,
+      url: `/collection/${slug}`,
+      images: [
+        {
+          url: image,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+  };
 }
 
 /**
