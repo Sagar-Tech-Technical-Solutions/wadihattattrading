@@ -39,7 +39,7 @@ export default function AboutHero() {
           {/* Single clean line */}
           <Reveal delay={260} variant="up">
             <p className="text-sm sm:text-base text-neutral-200/90 font-light leading-relaxed max-w-xl">
-              A trusted textile trading house rooted in Dubai since 2004,
+              A trusted textile trading house rooted in Dubai since 2001,
               bridging global fabric mills with regional trade.
             </p>
           </Reveal>

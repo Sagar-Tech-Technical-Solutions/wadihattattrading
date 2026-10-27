@@ -42,9 +42,10 @@ export default function Footer() {
                 Your Trusted Partner for Luxury Textiles in Dubai
               </h2>
               <p className="text-xs sm:text-sm text-neutral-200 font-light leading-relaxed max-w-xl mx-auto">
-                Source authentic Japanese Nida weaves, textured crepes, and
-                sartorial fabrics directly from our 4 Dubai showrooms or partner
-                with us for wholesale container distribution.
+                Source authentic Japanese Nida weaves, Textured crepes, Heavy
+                crystal stone dresses , and sartorial fabrics directly from our
+                4 Dubai showrooms or partner with us for wholesale container
+                distribution.
               </p>
 
               <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
@@ -100,9 +101,10 @@ export default function Footer() {
               {/* Content Below Logo */}
               <p className="text-xs sm:text-[13px] text-neutral-600 font-light leading-relaxed max-w-sm">
                 Wadi Hattat Trading Co LLC is Dubai&apos;s premier textile
-                destination. Sourcing authentic Japanese Nida, textured crepes,
-                and distinctive sartorial fabrics for couture ateliers, fashion
-                designers, and wholesale partners across the UAE and worldwide.
+                destination. Sourcing authentic China, Indonesia & India Nida,
+                textured crepes, and distinctive sartorial fabrics for couture
+                ateliers, fashion designers, and wholesale partners across the
+                UAE and worldwide.
               </p>
 
               <div className="pt-2 text-xs text-neutral-400 font-mono">
@@ -227,10 +229,10 @@ export default function Footer() {
                       Email Inquiries
                     </span>
                     <a
-                      href="mailto:info@wadihattat.com"
+                      href="mailto:whtdxb@gmail.com"
                       className="text-neutral-900 hover:text-dark-gold transition-colors block"
                     >
-                      info@wadihattat.com
+                      whtdxb@gmail.com
                     </a>
                   </div>
 

@@ -9,7 +9,7 @@ import StoresSection from "@/components/common/stores-section";
 import AboutCta from "@/components/about/about-cta";
 
 export const metadata: Metadata = {
-  title: "About Us | Luxury Textile Trading in Dubai",
+  title: "About Us | Wholesale Textile Trading in Dubai",
   description:
     "Founded on reliability, integrity, and exceptional quality, Wadi Hattat Trading is a premier textile trading company in Dubai with over 20 years of market heritage.",
   alternates: {

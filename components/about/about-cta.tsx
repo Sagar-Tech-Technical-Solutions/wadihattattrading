@@ -6,7 +6,10 @@ export default function AboutCta() {
   return (
     <section className="w-full bg-white py-8 lg:py-16 px-4 md:px-8 lg:px-16 overflow-hidden">
       <div className="max-w-[1400px] mx-auto">
-        <Reveal variant="scale" className="rounded-xl p-8 sm:p-12 lg:p-16 bg-neutral-50/80 border border-neutral-200/90 text-neutral-900 shadow-sm">
+        <Reveal
+          variant="scale"
+          className="rounded-xl p-8 sm:p-12 lg:p-16 bg-neutral-50/80 border border-neutral-200/90 text-neutral-900 shadow-sm"
+        >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Left Column: Heading & Narrative */}
             <div className="lg:col-span-7 space-y-4">
@@ -19,7 +22,9 @@ export default function AboutCta() {
               </h2>
 
               <p className="text-sm sm:text-base text-neutral-600 font-light leading-relaxed max-w-xl">
-                Looking for a reliable local supplier or international textile trading partner? Connect with Wadi Hattat Trading today to discuss your fabric and wholesale requirements.
+                Looking for a reliable local supplier or international textile
+                trading partner? Connect with Wadi Hattat Trading today to
+                discuss your fabric and wholesale requirements.
               </p>
 
               <div className="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-neutral-600 font-light">
@@ -33,7 +38,7 @@ export default function AboutCta() {
                   <strong className="font-medium text-neutral-900 block">
                     Direct Inquiries:
                   </strong>
-                  info@wadihattat.com • +971 52 647 4325
+                  whtdxb@gmail.com • +971 52 647 4325
                 </div>
               </div>
             </div>

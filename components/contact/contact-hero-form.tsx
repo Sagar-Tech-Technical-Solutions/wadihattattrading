@@ -135,17 +135,17 @@ export default function ContactHeroForm() {
               </h4>
               <p className="text-xs font-light">
                 <a
-                  href="mailto:info@wadihattat.com"
+                  href="mailto:whtdxb@gmail.com"
                   className="text-neutral-200 hover:text-white transition-colors block"
                 >
-                  info@wadihattat.com
+                  whtdxb@gmail.com
                 </a>
-                <a
+                {/* <a
                   href="mailto:sales@wadihattat.com"
                   className="text-neutral-300 hover:text-white transition-colors block"
                 >
                   sales@wadihattat.com
-                </a>
+                </a> */}
               </p>
             </div>
 

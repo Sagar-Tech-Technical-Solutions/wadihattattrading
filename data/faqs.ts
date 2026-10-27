@@ -9,7 +9,7 @@ export const FAQS: FAQItem[] = [
     number: "01",
     question: "What types of luxury fabrics do you specialize in?",
     answer:
-      "We specialize in premium modest fashion and haute couture textiles, including authentic Japanese Nida weaves, textured pebble crepes, bridal organza, rich Duchess satins, draped linen blends, and bespoke luxury chiffons sourced from renowned mills across Japan, Korea, and Europe.",
+      "We specialize in premium modest fashion and haute couture textiles, including authentic Japanese Nida weaves, textured pebble crepes, bridal organza, rich Duchess satins, draped linen blends, Heavy crystal stone dresses , and bespoke luxury chiffons sourced from renowned mills across Japan, Korea, and Europe.",
   },
   {
     number: "02",

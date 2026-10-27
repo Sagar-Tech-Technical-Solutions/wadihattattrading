@@ -19,7 +19,10 @@ export default function AboutMissionVision() {
                 </h3>
 
                 <p className="text-sm sm:text-base text-neutral-300 font-light leading-relaxed">
-                  To supply superior textile products through reliable local distribution and efficient international trade, leveraging our rich industry history to add tangible value to our customers&apos; operations.
+                  To supply superior textile products through reliable local
+                  distribution and efficient international trade, leveraging our
+                  rich industry history to add tangible value to our
+                  customers&apos; operations.
                 </p>
               </div>
 
@@ -43,7 +46,9 @@ export default function AboutMissionVision() {
                 </h3>
 
                 <p className="text-sm sm:text-base text-neutral-600 font-light leading-relaxed">
-                  To strengthen our position as a leading textile distributor in the UAE while continuing our legacy of innovation across global trade networks.
+                  To strengthen our position as a leading textile distributor in
+                  the UAE while continuing our legacy of innovation across
+                  global trade networks.
                 </p>
               </div>
 

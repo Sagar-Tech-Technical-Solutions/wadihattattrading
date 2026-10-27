@@ -8,14 +8,14 @@ import StoresSection from "@/components/common/stores-section";
 import FaqSection from "@/components/contact/faq-section";
 
 export const metadata: Metadata = {
-  title: "Wadi Hattat Trading | Luxury Textile Trading in Dubai",
+  title: "Wadi Hattat Trading | Wholesale Textile Trading in Dubai",
   description:
     "Dubai's premier textile trading house. Sourcing authentic Japanese Nida, textured crepes, and luxury abaya fabrics across 4 Dubai showrooms and global wholesale distribution.",
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "Wadi Hattat Trading | Luxury Textile Trading in Dubai",
+    title: "Wadi Hattat Trading | Wholesale Textile Trading in Dubai",
     description:
       "Dubai's premier textile trading house. Sourcing authentic Japanese Nida, textured crepes, and luxury abaya fabrics.",
     url: "/",

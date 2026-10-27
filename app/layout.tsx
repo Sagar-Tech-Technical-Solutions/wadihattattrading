@@ -15,9 +15,11 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: process.env.BASE_URL ? new URL(process.env.BASE_URL) : undefined,
+  metadataBase: process.env.BASE_URL
+    ? new URL(process.env.BASE_URL)
+    : undefined,
   title: {
-    default: "Wadi Hattat Trading | Luxury Textile Trading in Dubai",
+    default: "Wadi Hattat Trading | Wholesale Textile Trading in Dubai",
     template: "%s | Wadi Hattat Trading",
   },
   description:
@@ -30,7 +32,7 @@ export const metadata: Metadata = {
     locale: "en_AE",
     url: process.env.BASE_URL,
     siteName: "Wadi Hattat Trading",
-    title: "Wadi Hattat Trading | Luxury Textile Trading in Dubai",
+    title: "Wadi Hattat Trading | Wholesale Textile Trading in Dubai",
     description:
       "Premier textile trading company in Dubai. Sourcing authentic Japanese Nida, textured crepes, and luxury abaya fabrics.",
     images: [
@@ -44,7 +46,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Wadi Hattat Trading | Luxury Textile Trading in Dubai",
+    title: "Wadi Hattat Trading | Wholesale Textile Trading in Dubai",
     description:
       "Premier textile trading company in Dubai. Japanese Nida, crepes, and luxury abaya fabrics.",
     images: ["/Wadi Hattat Textile Storefront.webp"],

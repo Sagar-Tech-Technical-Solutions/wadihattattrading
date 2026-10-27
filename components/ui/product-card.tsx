@@ -54,14 +54,14 @@ export default function ProductCard({
         <p className="text-[14px] line-clamp-1 lg:line-clamp-none text-neutral-900 font-normal group-hover:text-dark-blue transition-colors">
           {product.name}
         </p>
-        <div className="flex items-center justify-between pt-0.5">
+        {/* <div className="flex items-center justify-between pt-0.5">
           <p className="text-sm font-medium text-neutral-800">
             AED {product.priceAED}{" "}
             <span className="text-xs text-neutral-500 font-light">
               / {product.unit}
             </span>
           </p>
-        </div>
+        </div> */}
       </div>
     </Link>
   );

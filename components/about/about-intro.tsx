@@ -17,7 +17,7 @@ export default function AboutIntro() {
                 WHO WE ARE
               </span>
 
-              <h2 className="font-display text-2xl sm:text-4xl lg:text-[40px] text-neutral-900 font-normal tracking-tight leading-[1.2]">
+              <h2 className="font-display text-2xl sm:text-4xl lg:text-[40px] max-w-xl text-neutral-900 font-normal tracking-tight leading-[1.2]">
                 A Trusted Textile Partner in the Heart of Dubai
               </h2>
             </div>
@@ -73,12 +73,12 @@ export default function AboutIntro() {
               <div className="space-y-4 divide-y divide-neutral-200/70">
                 <div className="pt-1 first:pt-0 space-y-1">
                   <div className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#ddaf4d]" />
+                    {/* <span className="w-1.5 h-1.5 rounded-full bg-[#ddaf4d]" /> */}
                     <h3 className="text-sm sm:text-base font-normal text-neutral-900">
                       Strategic Dubai Presence
                     </h3>
                   </div>
-                  <p className="text-xs sm:text-sm text-neutral-500 font-light leading-relaxed pl-3.5">
+                  <p className="text-xs sm:text-sm text-neutral-500 font-light leading-relaxed ">
                     4 retail and wholesale showrooms across Deira and Bur Dubai,
                     offering swift stock availability and dedicated customer
                     service.
@@ -87,26 +87,26 @@ export default function AboutIntro() {
 
                 <div className="pt-4 space-y-1">
                   <div className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#ddaf4d]" />
+                    {/* <span className="w-1.5 h-1.5 rounded-full bg-[#ddaf4d]" /> */}
                     <h3 className="text-sm sm:text-base font-normal text-neutral-900">
                       Global Direct Mill Sourcing
                     </h3>
                   </div>
-                  <p className="text-xs sm:text-sm text-neutral-500 font-light leading-relaxed pl-3.5">
+                  <p className="text-xs sm:text-sm text-neutral-500 font-light leading-relaxed ">
                     Longstanding partnerships with top-tier international mills
-                    ensuring premium fabric grades, authenticity, and competitive
-                    wholesale pricing.
+                    ensuring premium fabric grades, authenticity, and
+                    competitive wholesale pricing.
                   </p>
                 </div>
 
                 <div className="pt-4 space-y-1">
                   <div className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#ddaf4d]" />
+                    {/* <span className="w-1.5 h-1.5 rounded-full bg-[#ddaf4d]" /> */}
                     <h3 className="text-sm sm:text-base font-normal text-neutral-900">
                       Wholesale &amp; Tailored Volume
                     </h3>
                   </div>
-                  <p className="text-xs sm:text-sm text-neutral-500 font-light leading-relaxed pl-3.5">
+                  <p className="text-xs sm:text-sm text-neutral-500 font-light leading-relaxed ">
                     Equipped to fulfill custom roll sampling, container
                     shipments, and steady commercial supply for boutiques,
                     tailors, and merchants.
