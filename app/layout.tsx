@@ -15,8 +15,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: process.env.BASE_URL
-    ? new URL(process.env.BASE_URL)
+  metadataBase: process.env.NEXT_PUBLIC_BASE_URL
+    ? new URL(process.env.NEXT_PUBLIC_BASE_URL)
     : undefined,
   title: {
     default: "Wadi Hattat Trading | Wholesale Textile Trading in Dubai",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_AE",
-    url: process.env.BASE_URL,
+    url: process.env.NEXT_PUBLIC_BASE_URL,
     siteName: "Wadi Hattat Trading",
     title: "Wadi Hattat Trading | Wholesale Textile Trading in Dubai",
     description:

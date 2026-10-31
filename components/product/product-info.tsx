@@ -24,14 +24,14 @@ export default function ProductInfo({ product }: ProductInfoProps) {
 
       {/* Price Display in AED */}
       <div className="mt-4 pb-5 border-b border-neutral-100">
-        <p className="text-2xl sm:text-3xl font-semibold text-neutral-900">
+        {/* <p className="text-2xl sm:text-3xl font-semibold text-neutral-900">
           AED {product.priceAED}{" "}
           <span className="text-sm font-normal text-neutral-500">
             / {product.unit}
           </span>
-        </p>
+        </p> */}
         <p className="mt-1 text-xs text-neutral-500 font-light">
-          * Bulk container &amp; wholesale roll pricing available on direct
+          Bulk container &amp; wholesale roll pricing available on direct
           request.
         </p>
       </div>

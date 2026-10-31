@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image";
 import { Reveal } from "@/layouts/reveal";
 
 const INQUIRY_TYPES = [
@@ -12,28 +11,126 @@ const INQUIRY_TYPES = [
   "Others",
 ];
 
+// ponytail: native select avoids heavy phone-input packages
+const COUNTRY_CODES = [
+  { code: "+971", label: "+971 UAE" },
+  { code: "+966", label: "+966 KSA" },
+  { code: "+968", label: "+968 OMN" },
+  { code: "+965", label: "+965 KWT" },
+  { code: "+974", label: "+974 QAT" },
+  { code: "+973", label: "+973 BHR" },
+  { code: "+91", label: "+91 IND" },
+  { code: "+92", label: "+92 PAK" },
+  { code: "+44", label: "+44 UK" },
+  { code: "+1", label: "+1 USA" },
+  { code: "+90", label: "+90 TUR" },
+  { code: "+20", label: "+20 EGY" },
+  { code: "+86", label: "+86 CHN" },
+];
+
 export default function ContactHeroForm() {
   const [selectedInquiry, setSelectedInquiry] = useState("Wholesale");
+  const [countryCode, setCountryCode] = useState("+971");
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    country: "",
-    phone: "",
+    first_name: "",
+    last_name: "",
     email: "",
+    phone: "",
+    city: "",
     message: "",
-    newsletter: true,
   });
 
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrorMessage("");
+
+    // Input validation
+    if (!formData.first_name.trim()) {
+      setErrorMessage("Please enter your first name.");
+      return;
+    }
+    if (!formData.last_name.trim()) {
+      setErrorMessage("Please enter your last name.");
+      return;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email.trim())) {
+      setErrorMessage("Please enter a valid email address.");
+      return;
+    }
+    const cleanPhone = formData.phone.trim().replace(/[\s-]/g, "");
+    if (!cleanPhone || cleanPhone.length < 5 || cleanPhone.length > 16) {
+      setErrorMessage("Please enter a valid phone number.");
+      return;
+    }
+    if (!formData.message.trim()) {
+      setErrorMessage("Please enter your message.");
+      return;
+    }
+
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
+
+    try {
+      const baseUrl =
+        process.env.NEXT_PUBLIC_API_URL ||
+        "https://wadibck.demotempwebsite.co.in";
+
+      const payload = {
+        first_name: formData.first_name.trim(),
+        last_name: formData.last_name.trim(),
+        email: formData.email.trim(),
+        phone: `${countryCode} ${cleanPhone}`,
+        city: formData.city.trim(),
+        type_of_enquiry: selectedInquiry,
+        message: formData.message.trim(),
+      };
+
+      const response = await fetch(`${baseUrl}/wp-json/enquiry/v1/submit`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json().catch(() => null);
+
+      if (!response.ok) {
+        throw new Error(
+          data?.message ||
+            data?.error ||
+            `Submission failed with status ${response.status}`,
+        );
+      }
+
+      if (data && (data.success === false || data.status === "error")) {
+        throw new Error(data.message || "Failed to submit enquiry.");
+      }
+
+      setSuccessMessage(data?.message || "");
       setFormSubmitted(true);
-    }, 700);
+      setFormData({
+        first_name: "",
+        last_name: "",
+        email: "",
+        phone: "",
+        city: "",
+        message: "",
+      });
+    } catch (error: any) {
+      console.error("Submission error:", error);
+      setErrorMessage(
+        error?.message ||
+          "Failed to submit enquiry. Please check your connection and try again.",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const whatsappDirectUrl =
@@ -43,21 +140,9 @@ export default function ContactHeroForm() {
     );
 
   return (
-    <section className="relative rounded-xl overflow-hidden bg-neutral-950 text-white min-h-[640px] shadow-2xl">
-      {/* Background Architectural/Fabric Image */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="/Modern Fabric Showroom with Warm Wood Accents.webp"
-          alt="Wadi Hattat Trading Luxury Textiles"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-center filter brightness-[0.2] contrast-[1]"
-        />
-      </div>
-
+    <section className="relative overflow-hidden bg-white min-h-[640px]">
       {/* Foreground Grid Content */}
-      <div className="relative z-10 p-6 sm:p-10 lg:p-14 xl:p-16 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+      <div className="relative z-10 py-10 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
         {/* Left Column: Headline, Description & 2x2 Contact Details */}
         <Reveal
           variant="up"
@@ -69,7 +154,7 @@ export default function ContactHeroForm() {
               <br />
               We have answers
             </h1>
-            <p className="mt-5 text-sm tracking-wide text-neutral-300 font-light leading-relaxed max-w-xl">
+            <p className="mt-5 text-sm tracking-wide text-neutral-600 font-light leading-relaxed max-w-xl">
               A distinguished textile destination in Dubai. Seamless experiences
               you won&apos;t find anywhere else thoughtfully curated Japanese
               Nida, textured crepes, and sartorial weaves for couture houses and
@@ -84,11 +169,11 @@ export default function ContactHeroForm() {
               <h4 className="text-xs uppercase tracking-[0.2em] font-semibold text-[#ddaf4d]">
                 Location
               </h4>
-              <p className="text-xs text-neutral-200 font-light leading-relaxed">
+              <p className="text-xs text-neutral-600 font-light leading-relaxed">
                 9 8th St - Al Sabkha, Deira
                 <br />4 Stores in Deira &amp; Bur Dubai
               </p>
-              <p className="text-[11px] text-neutral-400 font-light pt-0.5">
+              <p className="text-[11px] text-neutral-500 font-light pt-0.5">
                 Mon - Sat: 09:00 - 14:00 &amp; 16:00 - 21:00
               </p>
               <p className="text-[11px] text-rose-300 font-medium">
@@ -101,7 +186,7 @@ export default function ContactHeroForm() {
               <h4 className="text-xs uppercase tracking-[0.2em] font-semibold text-[#ddaf4d]">
                 Social Media
               </h4>
-              <ul className="text-xs text-neutral-300 font-light space-y-0.5">
+              <ul className="text-xs text-neutral-600 font-light space-y-0.5">
                 <li>
                   <a
                     href="https://instagram.com"
@@ -123,7 +208,7 @@ export default function ContactHeroForm() {
                   </a>
                 </li>
                 <li>
-                  <span className="text-neutral-400">LinkedIn • Facebook</span>
+                  <span className="text-neutral-600">LinkedIn • Facebook</span>
                 </li>
               </ul>
             </div>
@@ -136,16 +221,10 @@ export default function ContactHeroForm() {
               <p className="text-xs font-light">
                 <a
                   href="mailto:whtdxb@gmail.com"
-                  className="text-neutral-200 hover:text-white transition-colors block"
+                  className="text-neutral-600 hover:text-white transition-colors block"
                 >
                   whtdxb@gmail.com
                 </a>
-                {/* <a
-                  href="mailto:sales@wadihattat.com"
-                  className="text-neutral-300 hover:text-white transition-colors block"
-                >
-                  sales@wadihattat.com
-                </a> */}
               </p>
             </div>
 
@@ -154,7 +233,7 @@ export default function ContactHeroForm() {
               <h4 className="text-xs uppercase tracking-[0.2em] font-semibold text-[#ddaf4d]">
                 Contact
               </h4>
-              <p className="text-xs font-mono text-neutral-200 font-light space-y-0.5">
+              <p className="text-xs font-mono text-neutral-600 font-light space-y-0.5">
                 <a
                   href="tel:+971526474325"
                   className="block hover:text-[#ddaf4d] transition-colors"
@@ -163,7 +242,7 @@ export default function ContactHeroForm() {
                 </a>
                 <a
                   href="tel:+97143536515"
-                  className="block text-neutral-300 hover:text-[#ddaf4d] transition-colors"
+                  className="block text-neutral-600 hover:text-[#ddaf4d] transition-colors"
                 >
                   +971 4 353 6515
                 </a>
@@ -190,7 +269,7 @@ export default function ContactHeroForm() {
 
             {formSubmitted ? (
               <div className="py-8 text-center space-y-4 animate-in fade-in">
-                <div className="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto border border-emerald-200">
+                <div className="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-lg flex items-center justify-center mx-auto border border-emerald-200">
                   <svg
                     className="w-6 h-6"
                     fill="none"
@@ -210,8 +289,8 @@ export default function ContactHeroForm() {
                     Inquiry Received
                   </h4>
                   <p className="text-xs text-neutral-500 font-light mt-1">
-                    Thank you for reaching out. Our textile advisors in Dubai
-                    will contact you promptly.
+                    {successMessage ||
+                      "Thank you for reaching out. Our textile advisors in Dubai will contact you promptly."}
                   </p>
                 </div>
                 <div className="pt-2 flex flex-col gap-2">
@@ -219,14 +298,17 @@ export default function ContactHeroForm() {
                     href={whatsappDirectUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full py-3 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-semibold uppercase tracking-wider transition-colors flex items-center justify-center gap-2"
+                    className="w-full py-3 rounded-lg bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-semibold uppercase tracking-wider transition-colors flex items-center justify-center gap-2"
                   >
                     <span>Chat Directly on WhatsApp</span>
                     <span>→</span>
                   </a>
                   <button
                     type="button"
-                    onClick={() => setFormSubmitted(false)}
+                    onClick={() => {
+                      setFormSubmitted(false);
+                      setErrorMessage("");
+                    }}
                     className="text-xs text-neutral-500 hover:text-black underline pt-1 cursor-pointer"
                   >
                     Send another inquiry
@@ -242,14 +324,14 @@ export default function ContactHeroForm() {
                       type="text"
                       required
                       placeholder="First Name"
-                      value={formData.firstName}
+                      value={formData.first_name}
                       onChange={(e) =>
                         setFormData({
                           ...formData,
-                          firstName: e.target.value,
+                          first_name: e.target.value,
                         })
                       }
-                      className="w-full px-4 py-2.5 text-xs border border-neutral-200 rounded-full focus:outline-none focus:border-neutral-900 transition-colors placeholder:text-neutral-400 bg-neutral-50/50"
+                      className="w-full px-4 py-2.5 text-xs border border-neutral-200 rounded-lg focus:outline-none focus:border-neutral-900 transition-colors placeholder:text-neutral-400 bg-neutral-50/50"
                     />
                   </div>
                   <div>
@@ -257,35 +339,47 @@ export default function ContactHeroForm() {
                       type="text"
                       required
                       placeholder="Last Name"
-                      value={formData.lastName}
+                      value={formData.last_name}
                       onChange={(e) =>
                         setFormData({
                           ...formData,
-                          lastName: e.target.value,
+                          last_name: e.target.value,
                         })
                       }
-                      className="w-full px-4 py-2.5 text-xs border border-neutral-200 rounded-full focus:outline-none focus:border-neutral-900 transition-colors placeholder:text-neutral-400 bg-neutral-50/50"
+                      className="w-full px-4 py-2.5 text-xs border border-neutral-200 rounded-lg focus:outline-none focus:border-neutral-900 transition-colors placeholder:text-neutral-400 bg-neutral-50/50"
                     />
                   </div>
                 </div>
 
-                {/* Row 2: Country / City | Phone Number */}
+                {/* Row 2: Country / City | Country Code + Phone Number */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <input
                       type="text"
                       placeholder="Country / City"
-                      value={formData.country}
+                      value={formData.city}
                       onChange={(e) =>
                         setFormData({
                           ...formData,
-                          country: e.target.value,
+                          city: e.target.value,
                         })
                       }
-                      className="w-full px-4 py-2.5 text-xs border border-neutral-200 rounded-full focus:outline-none focus:border-neutral-900 transition-colors placeholder:text-neutral-400 bg-neutral-50/50"
+                      className="w-full px-4 py-2.5 text-xs border border-neutral-200 rounded-lg focus:outline-none focus:border-neutral-900 transition-colors placeholder:text-neutral-400 bg-neutral-50/50"
                     />
                   </div>
-                  <div>
+                  <div className="flex border border-neutral-200 rounded-lg bg-neutral-50/50 focus-within:border-neutral-900 transition-colors overflow-hidden">
+                    <select
+                      value={countryCode}
+                      onChange={(e) => setCountryCode(e.target.value)}
+                      aria-label="Country code"
+                      className="bg-transparent pl-3 pr-1 py-2.5 text-xs text-neutral-800 border-r border-neutral-200 focus:outline-none cursor-pointer font-mono shrink-0"
+                    >
+                      {COUNTRY_CODES.map((c) => (
+                        <option key={c.code} value={c.code}>
+                          {c.label}
+                        </option>
+                      ))}
+                    </select>
                     <input
                       type="tel"
                       required
@@ -294,7 +388,7 @@ export default function ContactHeroForm() {
                       onChange={(e) =>
                         setFormData({ ...formData, phone: e.target.value })
                       }
-                      className="w-full px-4 py-2.5 text-xs border border-neutral-200 rounded-full focus:outline-none focus:border-neutral-900 transition-colors placeholder:text-neutral-400 bg-neutral-50/50 font-mono"
+                      className="w-full px-3 py-2.5 text-xs bg-transparent focus:outline-none placeholder:text-neutral-400 font-mono"
                     />
                   </div>
                 </div>
@@ -309,7 +403,7 @@ export default function ContactHeroForm() {
                     onChange={(e) =>
                       setFormData({ ...formData, email: e.target.value })
                     }
-                    className="w-full px-4 py-2.5 text-xs border border-neutral-200 rounded-full focus:outline-none focus:border-neutral-900 transition-colors placeholder:text-neutral-400 bg-neutral-50/50"
+                    className="w-full px-4 py-2.5 text-xs border border-neutral-200 rounded-lg focus:outline-none focus:border-neutral-900 transition-colors placeholder:text-neutral-400 bg-neutral-50/50"
                   />
                 </div>
 
@@ -326,7 +420,7 @@ export default function ContactHeroForm() {
                           key={type}
                           type="button"
                           onClick={() => setSelectedInquiry(type)}
-                          className={`px-3.5 py-1.5 rounded-full text-[11px] font-medium transition-all cursor-pointer ${
+                          className={`px-3.5 py-1.5 rounded-lg text-[11px] font-medium transition-all cursor-pointer ${
                             isSelected
                               ? "bg-neutral-900 text-white shadow-2xs"
                               : "bg-white border border-neutral-200 text-neutral-700 hover:border-neutral-400"
@@ -353,38 +447,36 @@ export default function ContactHeroForm() {
                   />
                 </div>
 
-                {/* Checkbox */}
-                <div className="flex items-center gap-2 pt-0.5">
-                  <input
-                    id="newsletter-check"
-                    type="checkbox"
-                    checked={formData.newsletter}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        newsletter: e.target.checked,
-                      })
-                    }
-                    className="w-3.5 h-3.5 accent-neutral-900 rounded cursor-pointer"
-                  />
-                  <label
-                    htmlFor="newsletter-check"
-                    className="text-[11px] text-neutral-500 font-light cursor-pointer select-none"
-                  >
-                    Subscribe to our exclusive textile &amp; collection releases
-                  </label>
-                </div>
+                {/* Error Banner */}
+                {errorMessage && (
+                  <div className="p-3 text-xs rounded-xl bg-rose-50 text-rose-700 border border-rose-200 flex items-start gap-2">
+                    <svg
+                      className="w-4 h-4 mt-0.5 shrink-0 text-rose-500"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                      />
+                    </svg>
+                    <span>{errorMessage}</span>
+                  </div>
+                )}
 
                 {/* Submit Button */}
                 <div className="pt-2">
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-3.5 rounded-full border border-neutral-900 bg-neutral-900 hover:bg-black text-white text-xs uppercase tracking-[0.2em] font-semibold transition-all cursor-pointer disabled:opacity-60 flex items-center justify-center gap-2 shadow-sm"
+                    className="w-full py-3.5 rounded-lg border border-neutral-900 bg-neutral-900 hover:bg-black text-white text-xs uppercase tracking-[0.2em] font-semibold transition-all cursor-pointer disabled:opacity-60 flex items-center justify-center gap-2 shadow-sm"
                   >
                     {isSubmitting ? (
                       <>
-                        <span className="w-3.5 h-3.5 border-2 border-white/40 border-t-white rounded-full animate-spin" />
+                        <span className="w-3.5 h-3.5 border-2 border-white/40 border-t-white rounded-lg animate-spin" />
                         <span>Sending...</span>
                       </>
                     ) : (

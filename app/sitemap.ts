@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { CATEGORIES, PRODUCTS } from "@/data/products";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.BASE_URL || "";
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "";
   const now = new Date();
 
   // Static core routes
@@ -34,20 +34,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   // Collection category routes
-  const categoryRoutes: MetadataRoute.Sitemap = CATEGORIES.map((cat) => ({
-    url: `${baseUrl}/collection/${cat.slug}`,
-    lastModified: now,
-    changeFrequency: "weekly",
-    priority: 0.85,
-  }));
+  // const categoryRoutes: MetadataRoute.Sitemap = CATEGORIES.map((cat) => ({
+  //   url: `${baseUrl}/collection/${cat.slug}`,
+  //   lastModified: now,
+  //   changeFrequency: "weekly",
+  //   priority: 0.85,
+  // }));
 
   // Product detail routes
-  const productRoutes: MetadataRoute.Sitemap = PRODUCTS.map((prod) => ({
-    url: `${baseUrl}/product/${prod.slug}`,
-    lastModified: now,
-    changeFrequency: "weekly",
-    priority: 0.7,
-  }));
+  // const productRoutes: MetadataRoute.Sitemap = PRODUCTS.map((prod) => ({
+  //   url: `${baseUrl}/product/${prod.slug}`,
+  //   lastModified: now,
+  //   changeFrequency: "weekly",
+  //   priority: 0.7,
+  // }));
 
-  return [...staticRoutes, ...categoryRoutes, ...productRoutes];
+  return [...staticRoutes];
 }

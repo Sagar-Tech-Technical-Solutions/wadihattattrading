@@ -264,16 +264,16 @@ export default function Footer() {
 
             {/* 4 Social Pill Buttons */}
             <div className="flex flex-wrap items-center justify-center gap-2.5">
-              <a
+              {/* <a
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-5 py-2 rounded-full border border-neutral-200 text-xs font-medium text-neutral-700 hover:border-black hover:text-black hover:bg-neutral-50 transition-colors"
               >
                 Facebook
-              </a>
+              </a> */}
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/wadi_hattat.ae"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-5 py-2 rounded-full border border-neutral-200 text-xs font-medium text-neutral-700 hover:border-black hover:text-black hover:bg-neutral-50 transition-colors"
@@ -288,14 +288,14 @@ export default function Footer() {
               >
                 WhatsApp
               </a>
-              <a
+              {/* <a
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-5 py-2 rounded-full border border-neutral-200 text-xs font-medium text-neutral-700 hover:border-black hover:text-black hover:bg-neutral-50 transition-colors"
               >
                 LinkedIn
-              </a>
+              </a> */}
             </div>
           </div>
 

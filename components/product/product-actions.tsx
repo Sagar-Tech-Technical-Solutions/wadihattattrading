@@ -26,9 +26,9 @@ export default function ProductActions({
           <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.98-1.307A9.957 9.957 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18.182c-1.636 0-3.155-.477-4.444-1.303l-.318-.204-2.964.777.791-2.89-.224-.356A8.148 8.148 0 013.818 12c0-4.512 3.67-8.182 8.182-8.182 4.512 0 8.182 3.67 8.182 8.182 0 4.512-3.67 8.182-8.182 8.182z" />
         </svg>
         <span>WhatsApp Enquiry</span>
-        <span className="transition-transform duration-300 group-hover:translate-x-1">
+        {/* <span className="transition-transform duration-300 group-hover:translate-x-1">
           →
-        </span>
+        </span> */}
       </a>
 
       {/* Direct Call Button */}
@@ -47,7 +47,7 @@ export default function ProductActions({
             d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
           />
         </svg>
-        <span>Call Showroom: +971 52 647 4325</span>
+        <span>Call Showroom</span>
       </a>
 
       {/* Request Formal Swatch or Bulk Quote Modal */}
@@ -56,7 +56,7 @@ export default function ProductActions({
         onClick={onOpenInquiryModal}
         className="w-full inline-flex items-center justify-center gap-2 border border-neutral-300 hover:border-black text-neutral-800 hover:text-black px-7 py-3 rounded-lg text-xs uppercase tracking-[0.18em] font-medium transition-all duration-300 bg-white cursor-pointer"
       >
-        <span>Request Swatches or Bulk Quotation</span>
+        <span>Bulk Quotation</span>
       </button>
     </div>
   );
