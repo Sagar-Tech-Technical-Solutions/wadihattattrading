@@ -6,6 +6,8 @@ import { Suspense } from "react";
 import Header from "@/layouts/header";
 import Footer from "@/layouts/footer";
 import SmoothScroll from "@/layouts/smooth-scroll";
+import GoogleTranslate from "@/components/ui/google-translate";
+import WhatsAppFloat from "@/components/ui/whatsapp-float";
 // import CustomCursor from "@/components/ui/custom-cursor";
 
 const inter = Inter({
@@ -68,7 +70,7 @@ export const metadata: Metadata = {
   manifest: "/favicon/manifest.json",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
@@ -81,14 +83,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           }}
         />
       </head>
-      <body className="min-h-full flex flex-col font-sans">
+      <body className="min-h-full flex flex-col font-sans overflow-x-hidden">
         {/* <CustomCursor /> */}
         <SmoothScroll>
-          <Suspense fallback={<div className="h-16 w-full" />}>
-            <Header />
-          </Suspense>
+          <Header />
           <div className="flex-1">{children}</div>
+          <GoogleTranslate />
           <Footer />
+          <WhatsAppFloat />
         </SmoothScroll>
       </body>
     </html>

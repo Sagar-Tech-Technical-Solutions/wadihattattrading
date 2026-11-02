@@ -61,7 +61,7 @@ export default function AboutUsPage() {
       <AboutMissionVision />
 
       {/* 6. 4 Dubai Showrooms & Locations */}
-      <StoresSection bgColor="bg-white" />
+      {/* <StoresSection bgColor="bg-white" /> */}
 
       {/* 7. Partner With Us Callout */}
       {/* <AboutCta /> */}

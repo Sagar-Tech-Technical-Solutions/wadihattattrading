@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/layouts/reveal";
 
@@ -6,49 +7,69 @@ export default function AboutIntro() {
   return (
     <section
       id="introduction"
-      className="w-full bg-white text-neutral-900 py-10 sm:py-14 lg:py-20 px-4 md:px-8 lg:px-16 overflow-hidden border-b border-neutral-100"
+      className="w-full bg-white text-neutral-900 py-16 sm:py-20 lg:py-28 px-4 md:px-8 lg:px-16 overflow-hidden border-b border-neutral-100"
     >
       <div className="max-w-[1400px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-          {/* Left Column: Eyebrow, Heading & Complete Narrative (Aligned together) */}
-          <Reveal className="lg:col-span-7 space-y-6" variant="up">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-18 items-center">
+          {/* Left Column: Eyebrow, Heading & Complete Narrative */}
+          <Reveal className="lg:col-span-7 space-y-5 sm:space-y-6" variant="up">
             <div>
               <span className="inline-block text-xs sm:text-[13px] font-mono uppercase tracking-[0.22em] text-[#ddaf4d] font-semibold mb-3">
                 WHO WE ARE
               </span>
 
-              <h2 className="font-display text-2xl sm:text-4xl lg:text-[40px] max-w-xl text-neutral-900 font-normal tracking-tight leading-[1.2]">
-                A Trusted Textile Partner in the Heart of Dubai
+              <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-light text-neutral-900 tracking-tight leading-[1.15]">
+                About Wadi Hattat Trading
               </h2>
             </div>
 
-            <div className="space-y-4 text-neutral-600 text-sm sm:text-base leading-relaxed font-light pt-1">
+            <div className="space-y-3.5 text-neutral-600 text-sm sm:text-[15px] leading-relaxed font-light">
               <p>
                 Welcome to{" "}
                 <strong className="font-medium text-neutral-900">
                   Wadi Hattat Trading
                 </strong>
                 , a trusted textile trading company headquartered in Dubai,
-                United Arab Emirates. Situated at the crossroads of
-                international trade, we specialize in sourcing, trading, and
-                supplying high-grade fabrics and textile products both locally
-                within the UAE market and to business partners across the globe.
+                United Arab Emirates, with roots that trace back to{" "}
+                <strong className="font-medium text-neutral-900">
+                  Wadi Hattat, Oman
+                </strong>
+                , where our journey first began.
               </p>
 
               <p>
-                Founded on the principles of reliability, integrity, and
-                exceptional quality, Wadi Hattat Trading has established itself
-                as a key player in the regional and international textile supply
-                chain. From local wholesale distribution to global sourcing, we
-                bridge the gap between world-class textile manufacturers and
-                diverse markets.
+                Our name is a tribute to our origins, reflecting the place where
+                our business was established and the values that continue to
+                guide us today. What started in Wadi Hattat, Oman, has grown into
+                a comprehensive textile trading business based in Dubai,
+                connecting suppliers, manufacturers, and customers across local
+                and international markets.
+              </p>
+
+              <p>
+                Strategically positioned at the crossroads of global trade, we
+                specialize in sourcing, trading, and supplying high-quality
+                fabrics and textile products to businesses throughout the UAE
+                and international markets.
+              </p>
+
+              <p>
+                From local wholesale distribution to international sourcing and
+                supply, we bridge the gap between established textile
+                manufacturers and diverse markets worldwide, combining our
+                Omani heritage with Dubai&apos;s global trading opportunities.
               </p>
             </div>
 
-            <div className="pt-2">
+            {/* Signature Motto Callout */}
+            <div className="p-4 rounded-xl bg-neutral-50/90 border-l-2 border-[#ddaf4d] text-neutral-800 text-xs sm:text-[13px] italic font-light">
+              “Rooted in Oman. Growing from Dubai. Connecting Textile Markets Worldwide.”
+            </div>
+
+            <div className="pt-2 flex items-center gap-4">
               <Link
                 href="/contact-us"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-neutral-900 hover:bg-black text-white text-xs uppercase tracking-[0.16em] font-semibold transition-all shadow-sm hover:shadow-md cursor-pointer group"
+                className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-neutral-900 hover:bg-black text-white text-xs uppercase tracking-[0.16em] font-medium transition-all shadow-md group cursor-pointer"
               >
                 <span>Partner With Us</span>
                 <span className="transition-transform duration-300 group-hover:translate-x-1">
@@ -58,63 +79,41 @@ export default function AboutIntro() {
             </div>
           </Reveal>
 
-          {/* Right Column: Balanced Key Capabilities Card */}
-          <Reveal delay={150} variant="up" className="lg:col-span-5">
-            <div className="rounded-2xl p-6 sm:p-8 bg-neutral-50/90 border border-neutral-200/80 space-y-5 shadow-xs">
-              <div className="flex items-center justify-between border-b border-neutral-200 pb-3.5">
-                <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#ddaf4d] font-semibold">
-                  Key Capabilities
-                </span>
-                <span className="text-[11px] font-mono text-neutral-400">
-                  Dubai • UAE
-                </span>
-              </div>
+          {/* Right Column: Human-Touch Editorial Visual */}
+          <div className="lg:col-span-5 relative">
+            <Reveal delay={150} variant="scale" className="relative">
+              <div className="relative aspect-[4/5] sm:aspect-[3/4] lg:aspect-[4/5] w-full rounded-2xl sm:rounded-3xl overflow-hidden bg-neutral-100 border border-neutral-200/80 shadow-2xl">
+                <Image
+                  src="/about-intro.jpg"
+                  alt="Client consultation and luxury fabric examination at Wadi Hattat Trading Dubai"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 42vw"
+                  className="object-cover object-center transition-transform duration-700 ease-out hover:scale-105"
+                  priority
+                />
 
-              <div className="space-y-4 divide-y divide-neutral-200/70">
-                <div className="pt-1 first:pt-0 space-y-1">
-                  <div className="flex items-center gap-2">
-                    {/* <span className="w-1.5 h-1.5 rounded-full bg-[#ddaf4d]" /> */}
-                    <h3 className="text-sm sm:text-base font-normal text-neutral-900">
-                      Strategic Dubai Presence
-                    </h3>
-                  </div>
-                  <p className="text-xs sm:text-sm text-neutral-500 font-light leading-relaxed ">
-                    4 retail and wholesale showrooms across Deira and Bur Dubai,
-                    offering swift stock availability and dedicated customer
-                    service.
-                  </p>
-                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent pointer-events-none" />
 
-                <div className="pt-4 space-y-1">
-                  <div className="flex items-center gap-2">
-                    {/* <span className="w-1.5 h-1.5 rounded-full bg-[#ddaf4d]" /> */}
-                    <h3 className="text-sm sm:text-base font-normal text-neutral-900">
-                      Global Direct Mill Sourcing
-                    </h3>
+                {/* Floating Glass Label */}
+                <div className="absolute bottom-5 inset-x-5 sm:bottom-6 sm:inset-x-6 z-10">
+                  <div className="backdrop-blur-md bg-black/45 border border-white/20 rounded-xl p-4 text-white shadow-lg">
+                    <span className="block text-[10px] uppercase tracking-[0.22em] text-[#ddaf4d] font-semibold mb-1">
+                      Oman Heritage • Dubai Global Hub
+                    </span>
+                    <p className="text-xs sm:text-[13px] font-light leading-relaxed text-neutral-200">
+                      Delivering dependable textile solutions built on reliability, integrity, and exceptional quality.
+                    </p>
                   </div>
-                  <p className="text-xs sm:text-sm text-neutral-500 font-light leading-relaxed ">
-                    Longstanding partnerships with top-tier international mills
-                    ensuring premium fabric grades, authenticity, and
-                    competitive wholesale pricing.
-                  </p>
-                </div>
-
-                <div className="pt-4 space-y-1">
-                  <div className="flex items-center gap-2">
-                    {/* <span className="w-1.5 h-1.5 rounded-full bg-[#ddaf4d]" /> */}
-                    <h3 className="text-sm sm:text-base font-normal text-neutral-900">
-                      Wholesale &amp; Tailored Volume
-                    </h3>
-                  </div>
-                  <p className="text-xs sm:text-sm text-neutral-500 font-light leading-relaxed ">
-                    Equipped to fulfill custom roll sampling, container
-                    shipments, and steady commercial supply for boutiques,
-                    tailors, and merchants.
-                  </p>
                 </div>
               </div>
-            </div>
-          </Reveal>
+
+              {/* Decorative Background Accent */}
+              <div
+                className="absolute -top-6 -right-6 w-44 h-44 bg-[#ddaf4d]/10 rounded-full blur-2xl pointer-events-none"
+                aria-hidden="true"
+              />
+            </Reveal>
+          </div>
         </div>
       </div>
     </section>

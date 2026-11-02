@@ -4,7 +4,7 @@ import { Reveal } from "@/layouts/reveal";
 
 export default function AboutHero() {
   return (
-    <section className="relative w-full min-h-[60vh] sm:min-h-[82vh] flex flex-col justify-end pb-10 sm:pb-16 px-4 md:px-8 lg:px-16 overflow-hidden">
+    <section className="relative w-full min-h-[55vh] sm:min-h-[85vh] flex flex-col justify-end pb-10 sm:pb-16 px-4 md:px-8 lg:px-16 overflow-hidden">
       {/* Background Storefront Image (Crisp, High Visibility) */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -16,7 +16,7 @@ export default function AboutHero() {
           className="object-cover object-center filter brightness-[0.75] sm:brightness-[0.82] contrast-[1.02]"
         />
         {/* Soft, minimal gradient only at the bottom for text legibility, keeping the rest of the image clear */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/20 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/20 pointer-events-none" />
       </div>
 
       {/* Foreground Minimal Content Container */}

@@ -123,7 +123,11 @@ export default function Homehero() {
       requestAnimationFrame(() => {
         setLoaderState("complete");
         hasCompletedEntranceOnce = true;
-        window.dispatchEvent(new CustomEvent("fabric-loader-reveal"));
+        if (typeof window !== "undefined") {
+          (window as any).__heroAnimationComplete = true;
+          window.dispatchEvent(new CustomEvent("fabric-loader-reveal"));
+          window.dispatchEvent(new CustomEvent("hero-animation-complete"));
+        }
       });
       return;
     }
@@ -278,6 +282,10 @@ export default function Homehero() {
         setLoaderState("complete");
         hasCompletedEntranceOnce = true;
         document.body.style.overflow = "";
+        if (typeof window !== "undefined") {
+          (window as any).__heroAnimationComplete = true;
+          window.dispatchEvent(new CustomEvent("hero-animation-complete"));
+        }
         if (sheetContainerRef.current) {
           gsap.set(sheetContainerRef.current, {
             left: 0,
@@ -500,11 +508,11 @@ export default function Homehero() {
               </Link>
 
               <Link
-                href="/categories"
+                href="/fabrics"
                 style={{ opacity: isComplete ? 1 : 0 }}
                 className="px-5 sm:px-7 py-2.5 sm:py-3 border border-white/70 text-white text-xs uppercase tracking-wider rounded-full hover:bg-white hover:text-dark-blue transition-all duration-300 flex items-center gap-2 group backdrop-blur-xs"
               >
-                <span>Explore categories</span>
+                <span>Our Fabrics</span>
               </Link>
             </div>
           </div>

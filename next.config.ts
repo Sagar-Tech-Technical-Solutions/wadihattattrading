@@ -9,13 +9,20 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "lailtextiles.com",
+        hostname: "wadibck.demotempwebsite.co.in",
+      },
+      {
+        protocol: "https",
+        hostname: "*",
+      },
+      {
+        protocol: "http",
+        hostname: "*",
       },
     ],
   },
   allowedDevOrigins: ["192.168.1.99"],
-  cacheComponents: true,
-  partialPrefetching: true,
+
   turbopack: {
     rules: {
       "*.css": {
@@ -23,6 +30,25 @@ const nextConfig: NextConfig = {
         as: "*.css",
       },
     },
+  },
+  async redirects() {
+    return [
+      {
+        source: "/collection/:path*",
+        destination: "/fabrics",
+        permanent: true,
+      },
+      {
+        source: "/product/:path*",
+        destination: "/fabrics",
+        permanent: true,
+      },
+      {
+        source: "/fabric",
+        destination: "/fabrics",
+        permanent: true,
+      },
+    ];
   },
 };
 

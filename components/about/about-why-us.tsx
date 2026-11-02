@@ -12,39 +12,37 @@ const WHY_US_ITEMS: WhyUsItem[] = [
     number: "01",
     title: "Industry Expertise & Legacy",
     description:
-      "With over two decades of market experience, we possess deep technical knowledge of fabric quality, global sourcing networks, and evolving market demands.",
+      "With over two decades of market heritage, we possess deep technical insight into yarn counts, fabric drape, and seasonal fashion shifts.",
   },
   {
     number: "02",
-    title: "Strong Local Presence & Global Reach",
+    title: "Strategic Hub & Swift Availability",
     description:
-      "With deep roots in Dubai’s vibrant commercial textile hub, we offer local clients swift delivery and reliable stock availability, backed by robust international supply lines.",
+      "Directly rooted in Dubai's premier textile district with 4 central showrooms, ensuring fast roll sampling and reliable container stock.",
   },
   {
     number: "03",
-    title: "Uncompromising Quality",
+    title: "Uncompromising Quality Control",
     description:
-      "We partner with established manufacturers to ensure every roll of fabric meets strict quality standards, durability requirements, and aesthetic expectations.",
+      "Direct relationships with certified international mills guarantee consistent weave density, colorfastness, and authentic material composition.",
   },
 ];
 
 export default function AboutWhyUs() {
   return (
-    <section className="w-full bg-white text-neutral-900 py-8 lg:py-16 px-4 md:px-8 lg:px-16 overflow-hidden">
+    <section className="w-full bg-white text-neutral-900 py-16 sm:py-20 lg:py-24 px-4 md:px-8 lg:px-16 overflow-hidden border-b border-neutral-100">
       <div className="max-w-[1400px] mx-auto">
-        <Reveal className="max-w-3xl mb-8 lg:mb-12" variant="up">
-          <span className="inline-block text-xs sm:text-[13px] font-mono uppercase tracking-[0.22em] text-neutral-400 mb-3 sm:mb-4">
+        <Reveal className="max-w-3xl mb-10 lg:mb-14" variant="up">
+          <span className="inline-block text-xs sm:text-[13px] font-mono uppercase tracking-[0.24em] text-[#ddaf4d] font-semibold mb-2 sm:mb-3">
             WHY CHOOSE US?
           </span>
 
-          <h2 className="font-display text-[1.7rem] md:text-6xl lg:text-[2rem] text-black/90 font-normal leading-[1.2]">
+          <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-light text-neutral-900 tracking-tight leading-[1.15]">
             Built on Reliability, Integrity &amp; Quality
           </h2>
 
-          <p className="mt-4 text-sm sm:text-base text-neutral-600 font-light leading-relaxed">
-            From independent boutiques to international trade partners, our
-            clients trust Wadi Hattat Trading for consistent excellence and
-            market expertise.
+          <p className="mt-4 text-sm sm:text-base text-neutral-600 font-light leading-relaxed max-w-2xl">
+            From independent couture ateliers to international volume merchants, our partners trust Wadi Hattat Trading for steadfast reliability and exquisite textiles.
           </p>
         </Reveal>
 
@@ -56,17 +54,17 @@ export default function AboutWhyUs() {
               variant="up"
               className="h-full"
             >
-              <div className="h-full rounded-xl p-6 sm:p-8 lg:p-9 bg-neutral-50/70 border border-neutral-200/80 hover:bg-white hover:border-[#ddaf4d]/60 transition-all duration-300 hover:shadow-lg flex flex-col justify-between">
+              <div className="h-full rounded-2xl p-7 sm:p-8 lg:p-9 bg-neutral-50/80 border border-neutral-200/80 hover:bg-white hover:border-[#ddaf4d]/60 hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
                 <div>
                   <span className="font-mono text-xs sm:text-sm font-semibold tracking-wider text-[#ddaf4d] block mb-4">
                     {item.number}
                   </span>
 
-                  <h3 className="text-lg sm:text-xl font-normal text-neutral-900 tracking-tight mb-3">
+                  <h3 className="text-lg sm:text-xl font-medium text-neutral-900 tracking-tight mb-3">
                     {item.title}
                   </h3>
 
-                  <p className="text-sm text-neutral-600 font-light leading-relaxed">
+                  <p className="text-xs sm:text-sm text-neutral-600 font-light leading-relaxed">
                     {item.description}
                   </p>
                 </div>

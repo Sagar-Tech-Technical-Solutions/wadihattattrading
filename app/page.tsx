@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import AboutUsSection from "@/components/home/about-us";
 import CategoriesSection from "@/components/home/categories";
 import Homehero from "@/components/home/hero";
-import PremiumCollection from "@/components/home/premium-collection";
 import WhatWeDoSection from "@/components/home/what-we-do";
-import StoresSection from "@/components/common/stores-section";
+import MapSection from "@/components/home/map-section";
 import FaqSection from "@/components/contact/faq-section";
+import AboutHeritage from "@/components/about/about-heritage";
 
 export const metadata: Metadata = {
   title: "Wadi Hattat Trading | Wholesale Textile Trading in Dubai",
@@ -30,16 +30,16 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Home() {
+export default async function Home() {
   return (
     <main className="relative">
       <Homehero />
       <AboutUsSection />
       <CategoriesSection />
-      <PremiumCollection />
+      <AboutHeritage />
       <WhatWeDoSection />
-      <StoresSection bgColor="bg-white" />
-      <FaqSection className="px-4 md:px-8 lg:px-16" />
+      <MapSection />
+      <FaqSection />
     </main>
   );
 }

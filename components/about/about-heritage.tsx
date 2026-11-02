@@ -6,102 +6,109 @@ export default function AboutHeritage() {
   return (
     <section
       id="heritage"
-      className="w-full bg-white text-neutral-900 py-8 lg:py-16 px-4 md:px-8 lg:px-16 overflow-hidden"
+      className="w-full bg-gray-100 text-neutral-900 py-16 sm:py-20 lg:py-28 px-4 md:px-8 lg:px-16 overflow-hidden border-b border-neutral-100"
     >
       <div className="max-w-[1400px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-          {/* Left Column: Narrative */}
-          <Reveal className="lg:col-span-7 space-y-6" variant="up">
-            <span className="inline-block text-xs sm:text-[13px] font-mono uppercase tracking-[0.22em] text-neutral-400 mb-3 sm:mb-4">
-              OUR HERITAGE
-            </span>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-18 items-center">
+          {/* Left Column: Master Craftsman Heritage Image */}
+          <div className="lg:col-span-5 relative order-2 lg:order-1">
+            <Reveal variant="scale" className="relative">
+              <div className="relative aspect-[4/5] w-full rounded-2xl sm:rounded-3xl overflow-hidden bg-neutral-200 border border-neutral-200/90 shadow-2xl">
+                <Image
+                  src="/about-heritage.jpg"
+                  alt="Senior textile merchant inspecting fine fabric rolls at Wadi Hattat Trading"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 42vw"
+                  className="object-cover object-center transition-transform duration-700 ease-out hover:scale-105"
+                />
 
-            <h2 className="font-display text-[1.7rem] md:text-6xl lg:text-[2rem] text-black/90 font-normal leading-[1.2]">
-              Pioneering the Global Textile Trade
-            </h2>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />
 
-            <div className="space-y-4 text-neutral-600 text-sm sm:text-base leading-relaxed font-light">
-              <p>
-                Over 20 years ago, when the abaya fabric market was almost
-                exclusively dominated by imports from Korea and Indonesia,{" "}
-                <strong className="font-medium text-neutral-800">
-                  Wadi Hattat Trading
-                </strong>{" "}
-                was among the first companies to introduce Chinese abaya fabrics
-                to Dubai.
-              </p>
-              <p>
-                By recognizing the potential, quality, and versatility of
-                textile mills in China early on, we helped transform the
-                market—making Chinese fabrics famous, accessible, and widely
-                appreciated both across the region and globally.
-              </p>
-              <p>
-                Today, that pioneering spirit continues to drive our business as
-                we stay ahead of industry trends and deliver innovation to our
-                clients.
-              </p>
-            </div>
-
-            {/* Quick Highlight Stats */}
-            <div className="pt-4 grid grid-cols-2 sm:grid-cols-3 gap-6 border-t border-neutral-100">
-              <div>
-                <div className="text-2xl sm:text-3xl font-semibold text-neutral-900 tracking-tight">
-                  20+
-                </div>
-                <div className="text-xs text-neutral-500 font-light mt-1">
-                  Years of Market Heritage
+                {/* Floating Glass Badge */}
+                <div className="absolute bottom-5 inset-x-5 sm:bottom-6 sm:inset-x-6 z-10">
+                  <div className="backdrop-blur-md bg-black/45 border border-white/20 rounded-xl p-4 text-white shadow-lg">
+                    <span className="block text-[10px] uppercase tracking-[0.22em] text-[#ddaf4d] font-semibold mb-1">
+                      Pioneering Spirit
+                    </span>
+                    <p className="text-xs sm:text-[13px] font-light leading-relaxed text-neutral-200">
+                      Over two decades of master inspection, trusted trade
+                      relationships, and regional leadership.
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              <div>
-                <div className="text-2xl sm:text-3xl font-semibold text-neutral-900 tracking-tight">
-                  4
-                </div>
-                <div className="text-xs text-neutral-500 font-light mt-1">
-                  Dubai Showrooms
-                </div>
-              </div>
-
-              <div>
-                <div className="text-2xl sm:text-3xl font-semibold text-neutral-900 tracking-tight">
-                  Global
-                </div>
-                <div className="text-xs text-neutral-500 font-light mt-1">
-                  Import &amp; Export Reach
-                </div>
-              </div>
-            </div>
-          </Reveal>
-
-          {/* Right Column: Imagery with Floating Badge */}
-          <Reveal
-            delay={180}
-            variant="scale"
-            className="lg:col-span-5 relative"
-          >
-            <div className="relative rounded-xl overflow-hidden min-h-[380px] sm:min-h-[460px] bg-neutral-100 shadow-xl group">
-              <Image
-                src="/Modern Fabric Showroom Reception.webp"
-                alt="Wadi Hattat Textile Heritage"
-                fill
-                sizes="(max-width: 1024px) 100vw, 60vw"
-                className="object-cover object-center transition-transform duration-700 ease-out"
+              {/* Decorative Accent Glow */}
+              <div
+                className="absolute -bottom-6 -left-6 w-44 h-44 bg-[#ddaf4d]/15 rounded-full blur-2xl pointer-events-none"
+                aria-hidden="true"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+            </Reveal>
+          </div>
 
-              {/* Floating Glass Badge */}
-              <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-md rounded-xl p-5 shadow-xl border border-white/60">
-                <span className="block text-[10px] font-semibold uppercase tracking-[0.2em] text-[#ddaf4d] mb-1">
-                  Established in Dubai
-                </span>
-                <p className="text-xs sm:text-sm font-medium text-neutral-900 leading-snug">
-                  Pioneering regional trade &amp; bringing international textile
-                  innovation to the UAE.
+          {/* Right Column: Refined Heritage Narrative & Stats */}
+          <div className="lg:col-span-7 space-y-6 sm:space-y-7 order-1 lg:order-2">
+            <Reveal variant="up">
+              <span className="inline-block text-xs sm:text-[13px] font-mono uppercase tracking-[0.22em] text-[#ddaf4d] font-semibold mb-2 sm:mb-3">
+                OUR HERITAGE
+              </span>
+
+              <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-light text-neutral-900 tracking-tight leading-[1.15]">
+                Pioneering the Regional Textile Trade
+              </h2>
+
+              <div className="space-y-4 text-neutral-600 text-sm sm:text-base leading-relaxed font-light mt-4">
+                <p>
+                  Over two decades ago, when the Gulf modest fashion market
+                  relied almost exclusively on limited import routes,{" "}
+                  <strong className="font-medium text-neutral-900">
+                    Wadi Hattat Trading
+                  </strong>{" "}
+                  helped pioneer the introduction of advanced Asian weaving
+                  mills to Dubai.
+                </p>
+
+                <p>
+                  By recognizing the remarkable drape, resilience, and tactile
+                  beauty of modern Nida and crepes early on, we transformed
+                  regional access—making couture-grade textiles accessible to
+                  local tailors and global volume buyers alike.
                 </p>
               </div>
-            </div>
-          </Reveal>
+            </Reveal>
+
+            {/* Quick Highlight Stats */}
+            <Reveal delay={150} variant="up">
+              <div className="pt-6 grid grid-cols-3 gap-4 sm:gap-6 border-t border-neutral-200/80">
+                <div className="p-4 rounded-xl bg-white border border-neutral-200/80 shadow-xs">
+                  <div className="text-2xl sm:text-3xl font-light text-neutral-900 tracking-tight">
+                    20+
+                  </div>
+                  <div className="text-xs text-neutral-500 font-light mt-1">
+                    Years Heritage
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-xl bg-white border border-neutral-200/80 shadow-xs">
+                  <div className="text-2xl sm:text-3xl font-light text-neutral-900 tracking-tight">
+                    4
+                  </div>
+                  <div className="text-xs text-neutral-500 font-light mt-1">
+                    Dubai Showrooms
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-xl bg-white border border-neutral-200/80 shadow-xs">
+                  <div className="text-2xl sm:text-3xl font-light text-neutral-900 tracking-tight">
+                    Global
+                  </div>
+                  <div className="text-xs text-neutral-500 font-light mt-1">
+                    Export Reach
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+          </div>
         </div>
       </div>
     </section>

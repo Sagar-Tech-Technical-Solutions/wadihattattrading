@@ -1,64 +1,32 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useMemo } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import gsap from "gsap";
-import { CATEGORIES, PRODUCTS } from "@/data/products";
-import ProductCard from "@/components/ui/product-card";
+import { menuLinks } from "@/data/links";
 
 interface NavItem {
   name: string;
   href: string;
 }
 
-const navItems: NavItem[] = [
-  { name: "Home", href: "/" },
-  { name: "Categories", href: "/collection/all" },
-  { name: "About Us", href: "/about-us" },
-  { name: "Contact Us", href: "/contact-us" },
-];
-
 let hasHeaderRevealed = false;
 
 export default function Header() {
   const pathname = usePathname();
   const isHomepage = pathname === "/";
-  const hasTransparentHeader = pathname === "/" || pathname === "/about-us";
+  const hasTransparentHeader =
+    pathname === "/" || pathname === "/about-us" || pathname === "/fabrics";
   const headerRef = useRef<HTMLElement>(null);
 
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Megamenu state
-  const [isMegamenuOpen, setIsMegamenuOpen] = useState(false);
-  const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-
   const prevPathnameRef = useRef(pathname);
-
-  // Megamenu hover handlers with slight debounce for smooth transition
-  const openMegamenu = () => {
-    if (closeTimeoutRef.current) {
-      clearTimeout(closeTimeoutRef.current);
-      closeTimeoutRef.current = null;
-    }
-    setIsMegamenuOpen(true);
-  };
-
-  const closeMegamenu = () => {
-    if (closeTimeoutRef.current) {
-      clearTimeout(closeTimeoutRef.current);
-    }
-    closeTimeoutRef.current = setTimeout(() => {
-      setIsMegamenuOpen(false);
-    }, 180);
-  };
-
-  // Stable 4 featured products displayed in megamenu (no hover changing)
-  const displayedProducts = useMemo(() => {
-    return PRODUCTS.slice(0, 4);
-  }, []);
+  const lastScrollYRef = useRef(0);
 
   // Track navigation to home from other pages & close menus on route change
   useEffect(() => {
@@ -74,7 +42,9 @@ export default function Header() {
       }
       prevPathnameRef.current = pathname;
       setMobileMenuOpen(false);
-      setIsMegamenuOpen(false);
+      setIsVisible(true);
+      lastScrollYRef.current =
+        typeof window !== "undefined" ? window.scrollY : 0;
       setIsScrolled(
         typeof window !== "undefined" ? window.scrollY > 20 : false,
       );
@@ -93,21 +63,33 @@ export default function Header() {
     };
   }, [mobileMenuOpen]);
 
-  // Toggle scrolled state on transparent header pages (Home & About Us)
+  // Unified scroll handler: slide up header on scroll down, slide down on scroll up
   useEffect(() => {
-    if (!hasTransparentHeader) {
-      setIsScrolled(false);
-      return;
-    }
-
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      const currentScrollY = window.scrollY;
+      const lastScrollY = lastScrollYRef.current;
+      const diff = currentScrollY - lastScrollY;
+
+      setIsScrolled(currentScrollY > 20);
+
+      // Always show at top of page or when mobile menu is open
+      if (currentScrollY <= 40 || mobileMenuOpen) {
+        setIsVisible(true);
+      } else if (diff > 8) {
+        // Scrolling down -> slide up (hide)
+        setIsVisible(false);
+      } else if (diff < -8) {
+        // Scrolling up -> slide down (show)
+        setIsVisible(true);
+      }
+
+      lastScrollYRef.current = currentScrollY;
     };
 
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [hasTransparentHeader]);
+  }, [mobileMenuOpen]);
 
   // Synchronize header reveal with the cinematic fabric loader
   useEffect(() => {
@@ -144,9 +126,8 @@ export default function Header() {
     };
   }, [isHomepage]);
 
-  // Header is white when scrolled, when on pages without transparent hero, or when any menu is open
-  const isWhite =
-    !hasTransparentHeader || isScrolled || mobileMenuOpen || isMegamenuOpen;
+  // Header is white when scrolled, when on pages without transparent hero, or when mobile menu is open
+  const isWhite = !hasTransparentHeader || isScrolled || mobileMenuOpen;
 
   return (
     <>
@@ -157,15 +138,19 @@ export default function Header() {
         style={{
           opacity: hasHeaderRevealed || !isHomepage ? 1 : 0,
         }}
-        className={`z-50 w-full px-4 md:px-8 lg:px-16 transition-colors duration-300 ease-in-out ${
-          hasTransparentHeader
-            ? "fixed top-0 left-0 right-0"
-            : "relative w-full"
-        } ${isWhite ? "bg-white text-black " : "bg-transparent text-white"}`}
+        className={`fixed top-0 z-50 inset-x-0 w-full max-w-[100vw] box-border px-4 sm:px-6 md:px-8 lg:px-16 transition-all duration-300 ease-in-out ${
+          isVisible || mobileMenuOpen
+            ? "translate-y-0 pointer-events-auto"
+            : "-translate-y-full pointer-events-none"
+        } ${
+          isWhite
+            ? "bg-white text-black " + (isScrolled ? "shadow-sm " : "")
+            : "bg-transparent text-white"
+        }`}
       >
         {/* Width matching categories section */}
-        <div className="max-w-[1400px] mx-auto">
-          <div className="flex items-center justify-between py-3">
+        <div className="w-full max-w-[1400px] mx-auto">
+          <div className="flex items-center justify-between py-3 w-full">
             {/* 1. LEFT: Logo */}
             <div className="flex items-center">
               <Link
@@ -187,48 +172,29 @@ export default function Header() {
               </Link>
             </div>
 
-            {/* 2. DESKTOP NAV: Full menu items with Categories Megamenu */}
-            <nav className="hidden lg:flex items-center gap-8">
-              {navItems.map((item) => {
-                const isCategories = item.name === "Categories";
+            {/* 2. DESKTOP NAV */}
+            <nav className="hidden lg:flex items-center gap-7 xl:gap-8">
+              {menuLinks.map((item) => {
                 const isActive = pathname === item.href;
+                const isContact = item.name === "Contact Us";
 
-                if (isCategories) {
+                if (isContact) {
                   return (
-                    <div
+                    <Link
                       key={item.name}
-                      onMouseEnter={openMegamenu}
-                      onMouseLeave={closeMegamenu}
-                      className="py-2"
+                      href={item.href}
+                      className={`text-[11px] uppercase tracking-[0.14em] font-medium px-4 py-1.5 rounded-full border transition-all duration-300 ${
+                        isActive
+                          ? isWhite
+                            ? "border-neutral-900 bg-neutral-900 text-white"
+                            : "border-white bg-white text-black"
+                          : isWhite
+                            ? "border-neutral-900/80 text-neutral-900 hover:bg-neutral-900 hover:text-white hover:border-neutral-900"
+                            : "border-white/80 text-white hover:bg-white hover:text-neutral-900 hover:border-white"
+                      }`}
                     >
-                      <Link
-                        href="/collection/all"
-                        className={`flex items-center gap-1.5 text-[11px] uppercase tracking-[0.1em] font-normal transition-colors duration-200 ${
-                          isMegamenuOpen || pathname.startsWith("/collection")
-                            ? "text-dark-gold font-medium"
-                            : isWhite
-                              ? "text-neutral-800 hover:text-dark-gold"
-                              : "text-white/90 hover:text-gold"
-                        }`}
-                      >
-                        <span>{item.name}</span>
-                        <svg
-                          className={`w-3 h-3 transition-transform duration-200 ${
-                            isMegamenuOpen ? "rotate-180 text-dark-gold" : ""
-                          }`}
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth={2}
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-                          />
-                        </svg>
-                      </Link>
-                    </div>
+                      {item.name}
+                    </Link>
                   );
                 }
 
@@ -251,13 +217,13 @@ export default function Header() {
             </nav>
 
             {/* 3. MOBILE: Drawer toggle button (Hidden on desktop) */}
-            <div className="flex items-center lg:hidden">
+            <div className="flex items-center lg:hidden shrink-0 ml-auto">
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 type="button"
                 aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
                 aria-expanded={mobileMenuOpen}
-                className={`text-xs uppercase tracking-widest flex items-center gap-2 py-1.5 px-2 focus:outline-none cursor-pointer ${
+                className={`text-xs uppercase tracking-widest flex items-center gap-1.5 py-1 px-1.5 focus:outline-none cursor-pointer ${
                   isWhite ? "text-black" : "text-white"
                 }`}
               >
@@ -295,84 +261,15 @@ export default function Header() {
             </div>
           </div>
         </div>
-
-        {/* ============================================================== */}
-        {/* 4. FULL-WIDTH DESKTOP MEGAMENU (Exact reference layout)         */}
-        {/* ============================================================== */}
-        <div
-          onMouseEnter={openMegamenu}
-          onMouseLeave={closeMegamenu}
-          className={`hidden lg:block absolute top-full left-0 right-0 w-full px-4 md:px-8 lg:px-16 bg-white border-t border-neutral-100 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.15)] transition-all duration-200 z-50 ${
-            isMegamenuOpen
-              ? "opacity-100 visible translate-y-0 pointer-events-auto"
-              : "opacity-0 invisible -translate-y-2 pointer-events-none"
-          }`}
-        >
-          <div className="max-w-[1400px] mx-auto py-8">
-            <div className="flex gap-12 lg:gap-16 items-start">
-              {/* LEFT COLUMN: COLLECTIONS LIST */}
-              <div className="w-56 shrink-0 border-r border-neutral-100 pr-6">
-                <span className="block text-[11px] font-semibold uppercase tracking-[0.24em] text-[#ddaf4d] mb-4">
-                  Collections
-                </span>
-                <ul className="space-y-1">
-                  {CATEGORIES.map((cat) => (
-                    <li key={cat.id}>
-                      <Link
-                        href={`/collection/${cat.slug}`}
-                        onClick={() => setIsMegamenuOpen(false)}
-                        className="block text-[12px]  text-neutral-600 hover:text-dark-gold transition-colors py-1"
-                      >
-                        {cat.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="pt-4 mt-4 border-t border-neutral-100">
-                  <Link
-                    href="/collection/all"
-                    onClick={() => setIsMegamenuOpen(false)}
-                    className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-neutral-900 hover:text-dark-gold transition-colors"
-                  >
-                    <span>All Collections</span>
-                    <span className="text-xs">→</span>
-                  </Link>
-                </div>
-              </div>
-
-              {/* RIGHT AREA: OUR FABRICS (4 Cards Grid matching reference) */}
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center justify-between pb-3 mb-3">
-                  <span className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#ddaf4d]">
-                    Our Fabrics
-                  </span>
-                  <Link
-                    href="/collection/all"
-                    onClick={() => setIsMegamenuOpen(false)}
-                    className="text-[11px] font-semibold uppercase tracking-[0.2em] text-neutral-800 hover:text-dark-gold transition-colors inline-flex items-center gap-1"
-                  >
-                    <span>View All</span>
-                    <span className="text-xs">→</span>
-                  </Link>
-                </div>
-
-                {/* 4 Product Cards in a Row using ProductCard component */}
-                <div className="grid grid-cols-4 gap-4">
-                  {displayedProducts.map((product) => (
-                    <div
-                      key={product.id}
-                      onClick={() => setIsMegamenuOpen(false)}
-                    >
-                      <ProductCard product={product} />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </header>
+
+      {/* Spacer for non-transparent header pages so content starts naturally below fixed header */}
+      {!hasTransparentHeader && (
+        <div
+          className="h-[64px] sm:h-[72px] w-full shrink-0"
+          aria-hidden="true"
+        />
+      )}
 
       {/* ============================================================== */}
       {/* 5. FULL-HEIGHT MOBILE DRAWER (w-[80%] with rich details)       */}
@@ -392,8 +289,10 @@ export default function Header() {
       {/* Side-Drawer Container (Full Height, w-[80%] max-w-[400px]) */}
       <aside
         aria-label="Mobile Navigation"
-        className={`fixed top-0 bottom-0 right-0 z-50 w-[80%] sm:w-[70%] max-w-[400px] h-full bg-white text-neutral-900 shadow-2xl flex flex-col transition-transform duration-300 ease-in-out lg:hidden ${
-          mobileMenuOpen ? "translate-x-0" : "translate-x-full"
+        className={`fixed top-0 bottom-0 right-0 z-50 w-[80%] sm:w-[70%] max-w-[400px] h-full bg-white text-neutral-900 shadow-2xl flex flex-col transition-all duration-300 ease-in-out lg:hidden ${
+          mobileMenuOpen
+            ? "translate-x-0 opacity-100 visible pointer-events-auto"
+            : "translate-x-full opacity-0 invisible pointer-events-none"
         }`}
       >
         {/* Top Header of Drawer: Logo + Close Button */}
@@ -436,73 +335,56 @@ export default function Header() {
           </button>
         </div>
 
-        {/* Scrollable Drawer Content */}
-        <div className="flex-1 overflow-y-auto px-5 py-5 space-y-6">
-          {/* Categories Cards */}
-          <div className="space-y-3">
-            <span className="block text-[11px] font-mono uppercase tracking-[0.2em] text-neutral-400">
-              Categories
-            </span>
-            <div className="grid grid-cols-3 gap-1.5">
-              {CATEGORIES.map((cat) => (
-                <Link
-                  key={cat.id}
-                  href={`/collection/${cat.slug}`}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="group relative aspect-[4/4.75] rounded-sm overflow-hidden bg-neutral-100 border border-neutral-200/80 flex flex-col justify-end p-2.5 shadow-xs"
-                >
-                  <Image
-                    src={cat.image}
-                    alt={cat.name}
-                    fill
-                    sizes="(max-width: 640px) 45vw, 180px"
-                    className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent pointer-events-none" />
-                  <span className="relative z-10 text-xs font-medium text-white tracking-wide truncate">
-                    {cat.name}
-                  </span>
-                </Link>
-              ))}
-            </div>
-            <Link
-              href="/collection/all"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block text-center py-2 text-xs font-mono uppercase tracking-wider text-[#ddaf4d] hover:text-black transition-colors"
-            >
-              View All Fabrics →
-            </Link>
-          </div>
+        {/* Scrollable Drawer Content: Only Menu Links */}
+        <div className="flex-1 overflow-y-auto px-6 py-6 flex flex-col justify-between">
+          <nav className="flex flex-col divide-y divide-neutral-100">
+            {menuLinks.map((item) => {
+              const isActive = pathname === item.href;
+              const isContact = item.name === "Contact Us";
 
-          {/* Other Menu Items */}
-          <div className="pt-4 border-t border-neutral-100">
-            <span className="block text-[11px] font-mono uppercase tracking-[0.2em] text-neutral-400 mb-2">
-              Menu
-            </span>
-            <nav className="flex flex-col space-y-1">
-              {[
-                { name: "Home", href: "/" },
-                { name: "About Us", href: "/about-us" },
-                { name: "Contact Us", href: "/contact-us" },
-              ].map((item) => {
-                const isActive = pathname === item.href;
+              if (isContact) {
                 return (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`text-sm py-2.5 px-3 rounded-lg transition-colors flex items-center justify-between ${
-                      isActive
-                        ? "bg-neutral-100 text-neutral-900 font-semibold"
-                        : "text-neutral-700 hover:bg-neutral-50 hover:text-neutral-900 font-normal"
-                    }`}
-                  >
-                    <span>{item.name}</span>
-                    <span className="text-xs text-neutral-400">→</span>
-                  </Link>
+                  <div key={item.name} className="pt-6 border-none">
+                    <Link
+                      href={item.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`block w-full text-center text-xs uppercase tracking-[0.16em] py-3.5 px-6 rounded-full border transition-all ${
+                        isActive
+                          ? "border-neutral-900 bg-neutral-900 text-white font-medium"
+                          : "border-neutral-900 bg-neutral-900 text-white hover:bg-black font-medium shadow-sm"
+                      }`}
+                    >
+                      {item.name}
+                    </Link>
+                  </div>
                 );
-              })}
-            </nav>
+              }
+
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`text-base font-light tracking-wide py-4 flex items-center justify-between transition-colors ${
+                    isActive
+                      ? "text-neutral-900 font-medium"
+                      : "text-neutral-700 hover:text-black"
+                  }`}
+                >
+                  <span>{item.name}</span>
+                  <span className="text-xs text-neutral-400">→</span>
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* Drawer Footer Contact Note */}
+          <div className="pt-6 border-t border-neutral-100 mt-auto text-xs text-neutral-400 space-y-1">
+            <p className="font-mono uppercase tracking-wider text-[11px] text-neutral-500">
+              Dubai Showrooms
+            </p>
+            <p className="font-light">Deira &amp; Bur Dubai, UAE</p>
+            <p className="font-mono text-neutral-600 pt-1">+971 52 647 4325</p>
           </div>
         </div>
       </aside>

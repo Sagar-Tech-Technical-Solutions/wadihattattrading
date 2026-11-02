@@ -32,8 +32,10 @@ export default function FaqSection({
   };
 
   return (
-    <section className={`w-full py-8 lg:py-16 ${className}`}>
-      <div className="max-w-[1400px] mx-auto">
+    <section
+      className={`w-full  bg-white py-16 sm:py-20 lg:py-28 px-4 md:px-8 lg:px-16`}
+    >
+      <div className="max-w-[1400px] mx-auto ">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
           {/* Left Column: Heading & Subtitle */}
           <Reveal variant="up" className="lg:col-span-5 lg:sticky lg:top-28">
@@ -56,70 +58,70 @@ export default function FaqSection({
               return (
                 <Reveal key={faq.number} delay={index * 60} variant="up">
                   <div className="py-5 sm:py-6">
-                  <button
-                    type="button"
-                    onClick={() => toggleFaq(faq.number)}
-                    className="w-full flex items-start justify-between gap-4 text-left cursor-pointer group focus:outline-none"
-                  >
-                    <div className="flex items-start gap-4 sm:gap-6">
-                      <span className="font-mono text-xs sm:text-sm text-neutral-400 pt-0.5 select-none font-medium">
-                        {faq.number}
-                      </span>
-                      <h3
-                        className={`text-sm sm:text-base font-medium transition-colors ${
+                    <button
+                      type="button"
+                      onClick={() => toggleFaq(faq.number)}
+                      className="w-full flex items-start justify-between gap-4 text-left cursor-pointer group focus:outline-none"
+                    >
+                      <div className="flex items-start gap-4 sm:gap-6">
+                        <span className="font-mono text-xs sm:text-sm text-neutral-400 pt-0.5 select-none font-medium">
+                          {faq.number}
+                        </span>
+                        <p
+                          className={`text-sm sm:text-[15px] font-medium transition-colors ${
+                            isOpen
+                              ? "text-neutral-900"
+                              : "text-neutral-800 group-hover:text-black"
+                          }`}
+                        >
+                          {faq.question}
+                        </p>
+                      </div>
+
+                      <span
+                        className={`w-6 h-6 rounded-full border border-neutral-300 flex items-center justify-center shrink-0 transition-transform duration-200 mt-0.5 ${
                           isOpen
-                            ? "text-neutral-900"
-                            : "text-neutral-800 group-hover:text-black"
+                            ? "rotate-180 border-neutral-900 text-neutral-900"
+                            : "text-neutral-400 group-hover:border-neutral-500 group-hover:text-neutral-700"
                         }`}
                       >
-                        {faq.question}
-                      </h3>
-                    </div>
+                        <svg
+                          className="w-3.5 h-3.5"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                        >
+                          {isOpen ? (
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M19.5 12h-15"
+                            />
+                          ) : (
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M12 4.5v15m7.5-7.5h-15"
+                            />
+                          )}
+                        </svg>
+                      </span>
+                    </button>
 
-                    <span
-                      className={`w-6 h-6 rounded-full border border-neutral-300 flex items-center justify-center shrink-0 transition-transform duration-200 mt-0.5 ${
+                    {/* Expandable Content */}
+                    <div
+                      className={`transition-all duration-300 overflow-hidden ${
                         isOpen
-                          ? "rotate-180 border-neutral-900 text-neutral-900"
-                          : "text-neutral-400 group-hover:border-neutral-500 group-hover:text-neutral-700"
+                          ? "max-h-96 opacity-100 pt-3 pl-8 sm:pl-12"
+                          : "max-h-0 opacity-0"
                       }`}
                     >
-                      <svg
-                        className="w-3.5 h-3.5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                      >
-                        {isOpen ? (
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M19.5 12h-15"
-                          />
-                        ) : (
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M12 4.5v15m7.5-7.5h-15"
-                          />
-                        )}
-                      </svg>
-                    </span>
-                  </button>
-
-                  {/* Expandable Content */}
-                  <div
-                    className={`transition-all duration-300 overflow-hidden ${
-                      isOpen
-                        ? "max-h-96 opacity-100 pt-3 pl-8 sm:pl-12"
-                        : "max-h-0 opacity-0"
-                    }`}
-                  >
-                    <p className="text-xs sm:text-sm text-neutral-600 font-light leading-relaxed">
-                      {faq.answer}
-                    </p>
+                      <p className="text-xs sm:text-sm text-neutral-600 font-light leading-relaxed">
+                        {faq.answer}
+                      </p>
+                    </div>
                   </div>
-                </div>
                 </Reveal>
               );
             })}

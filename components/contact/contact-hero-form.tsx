@@ -42,6 +42,7 @@ export default function ContactHeroForm() {
 
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [agreedConsent, setAgreedConsent] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
@@ -72,47 +73,43 @@ export default function ContactHeroForm() {
       setErrorMessage("Please enter your message.");
       return;
     }
+    if (!agreedConsent) {
+      setErrorMessage(
+        "Please accept the agreement to share your information before submitting.",
+      );
+      return;
+    }
 
     setIsSubmitting(true);
 
     try {
-      const baseUrl =
-        process.env.NEXT_PUBLIC_API_URL ||
-        "https://wadibck.demotempwebsite.co.in";
-
-      const payload = {
-        first_name: formData.first_name.trim(),
-        last_name: formData.last_name.trim(),
-        email: formData.email.trim(),
-        phone: `${countryCode} ${cleanPhone}`,
-        city: formData.city.trim(),
-        type_of_enquiry: selectedInquiry,
-        message: formData.message.trim(),
-      };
-
-      const response = await fetch(`${baseUrl}/wp-json/enquiry/v1/submit`, {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          first_name: formData.first_name.trim(),
+          last_name: formData.last_name.trim(),
+          email: formData.email.trim(),
+          phone: `${countryCode} ${cleanPhone}`.trim(),
+          city: formData.city.trim(),
+          type_of_enquiry: selectedInquiry,
+          message: formData.message.trim(),
+        }),
       });
 
-      const data = await response.json().catch(() => null);
+      const resData = await response.json().catch(() => null);
 
-      if (!response.ok) {
+      if (!response.ok || !resData?.success) {
         throw new Error(
-          data?.message ||
-            data?.error ||
-            `Submission failed with status ${response.status}`,
+          resData?.error || "Failed to submit enquiry. Please try again.",
         );
       }
 
-      if (data && (data.success === false || data.status === "error")) {
-        throw new Error(data.message || "Failed to submit enquiry.");
-      }
-
-      setSuccessMessage(data?.message || "");
+      setSuccessMessage(
+        "Thank you for contacting Wadi Hattat Trading! Your enquiry has been received and a confirmation email has been sent to your inbox. Our textile specialists will reach out shortly.",
+      );
       setFormSubmitted(true);
       setFormData({
         first_name: "",
@@ -122,11 +119,11 @@ export default function ContactHeroForm() {
         city: "",
         message: "",
       });
-    } catch (error: any) {
-      console.error("Submission error:", error);
+      setAgreedConsent(false);
+    } catch (err: any) {
       setErrorMessage(
-        error?.message ||
-          "Failed to submit enquiry. Please check your connection and try again.",
+        err?.message ||
+          "Failed to submit enquiry. Please try again or reach us directly on WhatsApp.",
       );
     } finally {
       setIsSubmitting(false);
@@ -221,7 +218,7 @@ export default function ContactHeroForm() {
               <p className="text-xs font-light">
                 <a
                   href="mailto:whtdxb@gmail.com"
-                  className="text-neutral-600 hover:text-white transition-colors block"
+                  className="text-neutral-600 transition-colors block"
                 >
                   whtdxb@gmail.com
                 </a>
@@ -445,6 +442,24 @@ export default function ContactHeroForm() {
                     }
                     className="w-full px-4 py-3 text-xs border border-neutral-200 rounded-xl focus:outline-none focus:border-neutral-900 transition-colors placeholder:text-neutral-400 bg-neutral-50/50 resize-y"
                   />
+                </div>
+
+                {/* Consent Agreement Checkbox */}
+                <div className="flex items-start gap-2.5 pt-1">
+                  <input
+                    type="checkbox"
+                    id="contact-consent"
+                    checked={agreedConsent}
+                    onChange={(e) => setAgreedConsent(e.target.checked)}
+                    className="mt-0.5 h-4 w-4 rounded border-neutral-300 text-neutral-900 focus:ring-0 focus:outline-none accent-neutral-900 cursor-pointer shrink-0"
+                  />
+                  <label
+                    htmlFor="contact-consent"
+                    className="text-xs text-neutral-600 font-light leading-relaxed cursor-pointer select-none"
+                  >
+                    I agree to share my information with Wadi Hattat Trading and
+                    consent to being contacted regarding my enquiry.
+                  </label>
                 </div>
 
                 {/* Error Banner */}

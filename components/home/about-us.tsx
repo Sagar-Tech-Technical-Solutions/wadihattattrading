@@ -7,13 +7,13 @@ export default function AboutUsSection() {
   return (
     <section
       id="about-us"
-      className="w-full bg-white text-neutral-900 py-8 lg:py-16 px-4 md:px-8 lg:px-16 overflow-hidden"
+      className="w-full bg-white text-neutral-900 py-14 sm:py-20 lg:py-24 px-4 md:px-8 lg:px-16 overflow-hidden"
     >
       <div className="max-w-[1400px] mx-auto">
         {/* ============================================================== */}
         {/* TOP ROW: EYEBROW, HEADLINE, NARRATIVE & EXPLORE MORE BUTTON   */}
         {/* ============================================================== */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 lg:gap-12 pb-6 lg:pb-6">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 lg:gap-12 ">
           <Reveal className="max-w-3xl" variant="up">
             {/* Eyebrow tag */}
             <span className="inline-block text-xs sm:text-[13px] font-mono uppercase tracking-[0.22em] text-neutral-400 mb-3 sm:mb-4">
@@ -66,7 +66,7 @@ export default function AboutUsSection() {
             className="lg:col-span-5 xl:col-span-4 flex flex-col gap-4 sm:gap-5"
           >
             {/* First Image */}
-            <div className="relative rounded-xl overflow-hidden min-h-[240px] sm:min-h-[300px] lg:min-h-[360px] flex-1 bg-neutral-100 shadow-sm group">
+            <div className="relative rounded-lg overflow-hidden min-h-[240px] sm:min-h-[300px] lg:min-h-[360px] flex-1 bg-neutral-100 shadow-sm group">
               <Image
                 src="/Modern Fabric Showroom with Warm Wood Accents.webp"
                 alt="Wadi Hattat Luxury Fabric Weave"
@@ -106,7 +106,7 @@ export default function AboutUsSection() {
           <Reveal
             delay={200}
             variant="up"
-            className="lg:col-span-7 xl:col-span-8 relative rounded-xl overflow-hidden  min-h-[230px] sm:min-h-[420px] lg:min-h-[460px] bg-neutral-100 shadow-sm group"
+            className="lg:col-span-7 xl:col-span-8 relative rounded-lg overflow-hidden  min-h-[230px] sm:min-h-[420px] lg:min-h-[460px] bg-neutral-100 shadow-sm group"
           >
             <Image
               src="/Wadi Hattat Textile Storefront.webp"
