@@ -40,8 +40,8 @@ export default function AboutIntro() {
               <p>
                 Our name is a tribute to our origins, reflecting the place where
                 our business was established and the values that continue to
-                guide us today. What started in Wadi Hattat, Oman, has grown into
-                a comprehensive textile trading business based in Dubai,
+                guide us today. What started in Wadi Hattat, Oman, has grown
+                into a comprehensive textile trading business based in Dubai,
                 connecting suppliers, manufacturers, and customers across local
                 and international markets.
               </p>
@@ -56,14 +56,15 @@ export default function AboutIntro() {
               <p>
                 From local wholesale distribution to international sourcing and
                 supply, we bridge the gap between established textile
-                manufacturers and diverse markets worldwide, combining our
-                Omani heritage with Dubai&apos;s global trading opportunities.
+                manufacturers and diverse markets worldwide, combining our Omani
+                heritage with Dubai&apos;s global trading opportunities.
               </p>
             </div>
 
             {/* Signature Motto Callout */}
             <div className="p-4 rounded-xl bg-neutral-50/90 border-l-2 border-[#ddaf4d] text-neutral-800 text-xs sm:text-[13px] italic font-light">
-              “Rooted in Oman. Growing from Dubai. Connecting Textile Markets Worldwide.”
+              “Rooted in Oman. Growing from Dubai. Connecting Textile Markets
+              Worldwide.”
             </div>
 
             <div className="pt-2 flex items-center gap-4">
@@ -84,8 +85,8 @@ export default function AboutIntro() {
             <Reveal delay={150} variant="scale" className="relative">
               <div className="relative aspect-[4/5] sm:aspect-[3/4] lg:aspect-[4/5] w-full rounded-2xl sm:rounded-3xl overflow-hidden bg-neutral-100 border border-neutral-200/80 shadow-2xl">
                 <Image
-                  src="/about-intro.jpg"
-                  alt="Client consultation and luxury fabric examination at Wadi Hattat Trading Dubai"
+                  src="/founderr.jpeg"
+                  alt="Chairman of Wadi Hattat Trading"
                   fill
                   sizes="(max-width: 1024px) 100vw, 42vw"
                   className="object-cover object-center transition-transform duration-700 ease-out hover:scale-105"
@@ -98,10 +99,10 @@ export default function AboutIntro() {
                 <div className="absolute bottom-5 inset-x-5 sm:bottom-6 sm:inset-x-6 z-10">
                   <div className="backdrop-blur-md bg-black/45 border border-white/20 rounded-xl p-4 text-white shadow-lg">
                     <span className="block text-[10px] uppercase tracking-[0.22em] text-[#ddaf4d] font-semibold mb-1">
-                      Oman Heritage • Dubai Global Hub
+                      Chairman • Wadi Hattat Trading
                     </span>
                     <p className="text-xs sm:text-[13px] font-light leading-relaxed text-neutral-200">
-                      Delivering dependable textile solutions built on reliability, integrity, and exceptional quality.
+                      Leading Wadi Hattat with enduring integrity, dedication to quality, and a visionary commitment to connecting global textile markets.
                     </p>
                   </div>
                 </div>

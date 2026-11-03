@@ -32,7 +32,7 @@ export default function AboutHero() {
           {/* Minimal, Luxury Heading */}
           <Reveal delay={180} variant="up">
             <h1 className="font-display text-3xl sm:text-5xl md:text-6xl text-white font-normal tracking-tight leading-[1.15] mb-2 sm:mb-3">
-              About Wadi Hattat
+              Wadi Hattat Trading
             </h1>
           </Reveal>
 

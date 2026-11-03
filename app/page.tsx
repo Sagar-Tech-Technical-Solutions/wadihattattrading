@@ -6,6 +6,7 @@ import WhatWeDoSection from "@/components/home/what-we-do";
 import MapSection from "@/components/home/map-section";
 import FaqSection from "@/components/contact/faq-section";
 import AboutHeritage from "@/components/about/about-heritage";
+import { InstagramFeed } from "@/components/home/instagram-feed";
 
 export const metadata: Metadata = {
   title: "Wadi Hattat Trading | Wholesale Textile Trading in Dubai",
@@ -39,6 +40,7 @@ export default async function Home() {
       <AboutHeritage />
       <WhatWeDoSection />
       <MapSection />
+      <InstagramFeed />
       <FaqSection />
     </main>
   );
