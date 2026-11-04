@@ -3,6 +3,7 @@ import AboutUsSection from "@/components/home/about-us";
 import CategoriesSection from "@/components/home/categories";
 import Homehero from "@/components/home/hero";
 import WhatWeDoSection from "@/components/home/what-we-do";
+import OurPartnersSection from "@/components/home/our-partners";
 import MapSection from "@/components/home/map-section";
 import FaqSection from "@/components/contact/faq-section";
 import AboutHeritage from "@/components/about/about-heritage";
@@ -39,8 +40,11 @@ export default async function Home() {
       <CategoriesSection />
       <AboutHeritage />
       <WhatWeDoSection />
+      <OurPartnersSection />
       <MapSection />
-      <InstagramFeed />
+      <div className="bg-gray-100">
+        <InstagramFeed />
+      </div>
       <FaqSection />
     </main>
   );

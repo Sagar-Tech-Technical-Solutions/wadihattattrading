@@ -8,7 +8,7 @@ export default function MapSection() {
   return (
     <section
       id="locations-map"
-      className="w-full bg-gray-100 py-16 sm:py-20 lg:py-28 px-4 md:px-8 lg:px-16 overflow-hidden "
+      className="w-full bg-white py-16 sm:py-20 lg:py-28 px-4 md:px-8 lg:px-16 overflow-hidden "
     >
       <div className="max-w-[1400px] mx-auto text-center">
         {/* Centered Heading & Subtitle */}
@@ -55,7 +55,7 @@ export default function MapSection() {
             {STORES.map((store, idx) => (
               <div
                 key={store.id}
-                className="p-4 sm:p-5 rounded-xl sm:rounded-2xl bg-white border border-neutral-200/70 hover:border-neutral-400/80 transition-colors flex flex-col justify-between"
+                className="p-4 sm:p-5 rounded-xl sm:rounded-2xl bg-gray-100 border border-neutral-200/70 hover:border-neutral-400/80 transition-colors flex flex-col justify-between"
               >
                 <div>
                   <p className="text-[13px] font-medium text-neutral-900 leading-snug">

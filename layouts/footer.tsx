@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { menuLinks } from "@/data/links";
+import Image from "next/image";
 
 const currentYear = 2026;
 
@@ -37,9 +38,20 @@ export default function Footer() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
             {/* Left Column: Heading, CTA Button & Email */}
             <div className="lg:col-span-7 space-y-6 sm:space-y-7">
-              <span className="block text-xs font-semibold uppercase tracking-[0.2em] text-[#8b8fa8]">
-                CONTACT US
-              </span>
+              <Link
+                href="/"
+                className={`relative transition-all duration-300 w-14 h-14 sm:w-20 sm:h-20 block hover:scale-105`}
+              >
+                <Image
+                  src={"/logo/1.png"}
+                  alt="Wadi Hattat Trading"
+                  height={300}
+                  width={300}
+                  sizes="100px"
+                  className="h-full w-full object-contain"
+                  priority
+                />
+              </Link>
 
               <h2 className="text-[26px] sm:text-3xl md:text-4xl font-medium text-white leading-[1.3] max-w-xl">
                 Your Trusted Partner for Luxury Textiles in Dubai
@@ -64,10 +76,10 @@ export default function Footer() {
 
                 <a
                   href="mailto:whtdxb@gmail.com"
-                  className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 hover:border-white/20 transition-all text-xs sm:text-sm text-neutral-200 group cursor-pointer"
+                  className="inline-flex items-center gap-3text-xs sm:text-sm text-neutral-200 group cursor-pointer"
                   title="Send an email to whtdxb@gmail.com"
                 >
-                  <span className="font-light tracking-wide">
+                  <span className="font-light tracking-wide pr-2">
                     whtdxb@gmail.com
                   </span>
                   <svg

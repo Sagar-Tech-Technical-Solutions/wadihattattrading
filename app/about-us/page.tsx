@@ -7,6 +7,7 @@ import AboutWhyUs from "@/components/about/about-why-us";
 import AboutMissionVision from "@/components/about/about-mission-vision";
 import StoresSection from "@/components/common/stores-section";
 import AboutCta from "@/components/about/about-cta";
+import OurPartnersSection from "@/components/home/our-partners";
 
 export const metadata: Metadata = {
   title: "About Us | Wholesale Textile Trading in Dubai",
@@ -54,6 +55,8 @@ export default function AboutUsPage() {
       {/* 3. What We Do */}
       <WhatWeDoSection />
 
+      <OurPartnersSection />
+
       {/* 4. Why Choose Us */}
       <AboutWhyUs />
 
@@ -61,7 +64,7 @@ export default function AboutUsPage() {
       <AboutMissionVision />
 
       {/* 6. 4 Dubai Showrooms & Locations */}
-      {/* <StoresSection bgColor="bg-white" /> */}
+      <StoresSection bgColor="bg-white" />
 
       {/* 7. Partner With Us Callout */}
       {/* <AboutCta /> */}

@@ -57,22 +57,26 @@ export default function AboutHeritage() {
                 Pioneering the Regional Textile Trade
               </h2>
 
-              <div className="space-y-4 text-neutral-600 text-sm sm:text-base leading-relaxed font-light mt-4">
+              <div className="mt-4 space-y-4 text-neutral-600 text-sm sm:text-base leading-relaxed font-light">
                 <p>
-                  Over two decades ago, when the Gulf modest fashion market
-                  relied almost exclusively on limited import routes,{" "}
-                  <strong className="font-medium text-neutral-900">
+                  Over 20 years ago, when the abaya fabric market was almost
+                  exclusively dominated by imports from Korea and Indonesia,{" "}
+                  <strong className="font-medium text-neutral-800">
                     Wadi Hattat Trading
                   </strong>{" "}
-                  helped pioneer the introduction of advanced Asian weaving
-                  mills to Dubai.
+                  was among the first companies to introduce Chinese abaya
+                  fabrics to Dubai.
                 </p>
-
                 <p>
-                  By recognizing the remarkable drape, resilience, and tactile
-                  beauty of modern Nida and crepes early on, we transformed
-                  regional access—making couture-grade textiles accessible to
-                  local tailors and global volume buyers alike.
+                  By recognizing the potential, quality, and versatility of
+                  textile mills in China early on, we helped transform the
+                  market making Chinese fabrics famous, accessible, and widely
+                  appreciated both across the region and globally.
+                </p>
+                <p>
+                  Today, that pioneering spirit continues to drive our business
+                  as we stay ahead of industry trends and deliver innovation to
+                  our clients.
                 </p>
               </div>
             </Reveal>
@@ -82,7 +86,7 @@ export default function AboutHeritage() {
               <div className="pt-6 grid grid-cols-3 gap-4 sm:gap-6 border-t border-neutral-200/80">
                 <div className="p-4 rounded-xl bg-white border border-neutral-200/80 shadow-xs">
                   <div className="text-2xl sm:text-3xl font-light text-neutral-900 tracking-tight">
-                    20+
+                    25+
                   </div>
                   <div className="text-xs text-neutral-500 font-light mt-1">
                     Years Heritage
@@ -103,7 +107,7 @@ export default function AboutHeritage() {
                     Global
                   </div>
                   <div className="text-xs text-neutral-500 font-light mt-1">
-                    Export Reach
+                    Import &amp; Export Reach
                   </div>
                 </div>
               </div>

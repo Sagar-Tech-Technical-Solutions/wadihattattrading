@@ -19,7 +19,7 @@ export default function AboutIntro() {
               </span>
 
               <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-light text-neutral-900 tracking-tight leading-[1.15]">
-                About Wadi Hattat Trading
+                A Trusted Textile Partner in the Heart of Duabi
               </h2>
             </div>
 
@@ -102,7 +102,9 @@ export default function AboutIntro() {
                       Chairman • Wadi Hattat Trading
                     </span>
                     <p className="text-xs sm:text-[13px] font-light leading-relaxed text-neutral-200">
-                      Leading Wadi Hattat with enduring integrity, dedication to quality, and a visionary commitment to connecting global textile markets.
+                      Leading Wadi Hattat with enduring integrity, dedication to
+                      quality, and a visionary commitment to connecting global
+                      textile markets.
                     </p>
                   </div>
                 </div>

@@ -6,21 +6,21 @@ import StoresSection from "@/components/common/stores-section";
 export const metadata: Metadata = {
   title: "Fabrics Collection | Wadi Hattat Trading Dubai",
   description:
-    "Explore our complete range of wholesale fabrics in Dubai: Satin, Silk, Jersey, Jacquard, Lace, Velvet, Embroidery, and Crystal Handwork textiles.",
+    "Explore our complete range of wholesale fabrics in Dubai: NIDA, Crepe, Sheila, Chiffon, Organza, Satin, Silk, Jersey, Jacquard, Lace, Velvet, Embroidery, Crystal Handwork, Kandura, and specialized textiles.",
   alternates: {
     canonical: "/fabrics",
   },
   openGraph: {
     title: "Fabrics Collection | Wadi Hattat Trading Dubai",
     description:
-      "Explore Dubai's premier wholesale fabric selection. Sourcing authentic satins, silks, knits, jacquards, and couture embellishments.",
+      "Explore Dubai's premier wholesale fabric selection: NIDA, Crepe, Sheila, Chiffon, Organza, Satin, Silk, Jersey, Jacquard, Lace, Velvet, Embroidery, Crystal Handwork, and Kandura.",
     url: "/fabrics",
     images: [
       {
-        url: "/fabrics/satin.jpg",
+        url: "/categories/nida.jpg",
         width: 1200,
         height: 630,
-        alt: "Wadi Hattat Trading Fabrics",
+        alt: "Wadi Hattat Trading Fabrics Collection",
       },
     ],
   },

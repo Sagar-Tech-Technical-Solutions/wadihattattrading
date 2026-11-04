@@ -52,7 +52,7 @@ export default function FabricsClient() {
         </Reveal>
 
         {/* Fabrics Grid - Images Clean Without Overlays, Content Displayed Below Frame, No Links */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-7 sm:gap-x-8 gap-y-12 sm:gap-y-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-7 sm:gap-x-10 gap-y-12 sm:gap-y-20">
           {fabrics.map((fabric, idx) => (
             <Reveal key={fabric.id} delay={idx * 50} variant="up">
               <div className="flex flex-col">
@@ -69,7 +69,7 @@ export default function FabricsClient() {
                 </div>
 
                 {/* Content Displayed Completely Outside the Image Card - No Enquire Button, No Links */}
-                <div className="mt-4 sm:mt-5 flex flex-col">
+                <div className="mt-4 pl-1 sm:mt-5 flex flex-col">
                   <div className="flex items-baseline justify-between gap-3">
                     <h3 className="font-display text-xl sm:text-2xl font-light text-white tracking-wide">
                       {fabric.name}

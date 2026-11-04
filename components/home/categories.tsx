@@ -95,9 +95,9 @@ export default function CategoriesSection() {
                 Fabric Lines
               </h2>
               <p className="mt-3 text-xs sm:text-sm text-neutral-300 font-light max-w-xl leading-relaxed">
-                Discover authentic silks, lustrous satins, premium modal knits,
-                and couture embellishments sourced for bespoke modest wear and
-                wholesale distribution.
+                Discover authentic NIDA, Crepe, Sheila, Chiffon, luxury silks,
+                satins, couture embellishments, and pristine Kandura fabrics
+                sourced for bespoke modest wear and wholesale distribution.
               </p>
             </div>
 
