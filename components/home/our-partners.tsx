@@ -61,9 +61,6 @@ export default function OurPartnersSection() {
           variant="fade"
           className="text-center max-w-2xl mx-auto mb-6 sm:mb-8"
         >
-          <span className="inline-block text-xs sm:text-[13px] font-mono uppercase tracking-[0.22em] text-[#ddaf4d] font-semibold mb-3">
-            STRATEGIC ALLIANCES
-          </span>
           <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-light text-neutral-900 tracking-tight leading-[1.2]">
             Our Partners
           </h2>
