@@ -19,7 +19,7 @@ export default function AboutIntro() {
               </span>
 
               <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-light text-neutral-900 tracking-tight leading-[1.15]">
-                A Trusted Textile Partner in the Heart of Duabi
+                A Trusted Textile Partner in the Heart of Dubai
               </h2>
             </div>
 

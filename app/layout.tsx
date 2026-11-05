@@ -85,13 +85,13 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body className="min-h-full flex flex-col font-sans overflow-x-hidden">
         {/* <CustomCursor /> */}
-        <SmoothScroll>
-          <Header />
-          <div className="flex-1">{children}</div>
-          <GoogleTranslate />
-          <Footer />
-          <WhatsAppFloat />
-        </SmoothScroll>
+        {/* <SmoothScroll> */}
+        <Header />
+        <div className="flex-1">{children}</div>
+        <GoogleTranslate />
+        <Footer />
+        <WhatsAppFloat />
+        {/* </SmoothScroll> */}
       </body>
     </html>
   );

@@ -64,7 +64,7 @@ export default function WhatsAppFloat() {
       "Hi Wadi Hattat Trading, I would like to visit your Dubai showroom / place a wholesale enquiry.";
   }
 
-  const whatsappHref = `https://wa.me/971526474325?text=${encodeURIComponent(
+  const whatsappHref = `https://wa.me/97143536515?text=${encodeURIComponent(
     message,
   )}`;
 

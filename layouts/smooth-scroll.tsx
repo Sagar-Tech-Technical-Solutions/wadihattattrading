@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import "lenis/dist/lenis.css";
 
@@ -9,6 +10,9 @@ export default function SmoothScroll({
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+  const isPopStateRef = useRef(false);
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       if ("scrollRestoration" in window.history) {
@@ -28,7 +32,16 @@ export default function SmoothScroll({
     });
 
     lenis.scrollTo(0, { immediate: true });
-    (window as any).lenis = lenis;
+    (window as unknown as { lenis?: Lenis }).lenis = lenis;
+
+    const onPopState = () => {
+      isPopStateRef.current = true;
+      requestAnimationFrame(() => {
+        lenis.scrollTo(window.scrollY, { immediate: true });
+      });
+    };
+
+    window.addEventListener("popstate", onPopState);
 
     let rafId: number;
     function raf(time: number) {
@@ -40,10 +53,27 @@ export default function SmoothScroll({
 
     return () => {
       cancelAnimationFrame(rafId);
+      window.removeEventListener("popstate", onPopState);
       lenis.destroy();
-      delete (window as any).lenis;
+      delete (window as unknown as { lenis?: Lenis }).lenis;
     };
   }, []);
+
+  // Route change: if it was NOT a popstate (i.e. regular link click), scroll to top
+  useEffect(() => {
+    if (isPopStateRef.current) {
+      isPopStateRef.current = false;
+      return;
+    }
+
+    if (typeof window !== "undefined") {
+      const lenis = (window as unknown as { lenis?: Lenis }).lenis;
+      if (lenis) {
+        lenis.scrollTo(0, { immediate: true });
+      }
+      window.scrollTo(0, 0);
+    }
+  }, [pathname]);
 
   return <>{children}</>;
 }

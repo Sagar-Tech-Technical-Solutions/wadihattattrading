@@ -49,26 +49,17 @@ const slides: Slide[] = [
 
 const SLIDE_DURATION = 6000;
 const CYCLE_INTERVAL = 300; // 300ms per image
-// In-memory flag: tracks completion within the current page lifecycle
+// Captured once when the JS bundle initializes on initial browser load/reload
+const initialPathOnLoad =
+  typeof window !== "undefined" ? window.location.pathname : "";
+
 let hasCompletedEntranceOnce = false;
 
-// Helper: animation plays ONLY on homepage reload/direct entry, NOT on Link navigation
+// Animation plays ONLY when user reloads/enters homepage directly, NEVER on client navigation from other pages
 const shouldSkipLoader = (): boolean => {
   if (typeof window === "undefined") return false;
   if (hasCompletedEntranceOnce) return true;
-
-  const win = window as unknown as {
-    __isClientNavToHome?: boolean;
-    __initialLoadedPath?: string;
-  };
-
-  if (win.__initialLoadedPath && win.__initialLoadedPath !== "/") {
-    return true;
-  }
-  if (win.__isClientNavToHome) {
-    win.__isClientNavToHome = false;
-    return true;
-  }
+  if ((window as any).__hasCompletedEntrance) return true;
   return false;
 };
 
@@ -120,15 +111,15 @@ export default function Homehero() {
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     if (shouldSkipLoader() || prefersReducedMotion) {
-      requestAnimationFrame(() => {
-        setLoaderState("complete");
-        hasCompletedEntranceOnce = true;
-        if (typeof window !== "undefined") {
-          (window as any).__heroAnimationComplete = true;
-          window.dispatchEvent(new CustomEvent("fabric-loader-reveal"));
-          window.dispatchEvent(new CustomEvent("hero-animation-complete"));
-        }
-      });
+      document.body.style.overflow = "";
+      hasCompletedEntranceOnce = true;
+      if (typeof window !== "undefined") {
+        (window as any).__hasCompletedEntrance = true;
+        (window as any).__heroAnimationComplete = true;
+        window.dispatchEvent(new CustomEvent("fabric-loader-reveal"));
+        window.dispatchEvent(new CustomEvent("hero-animation-complete"));
+      }
+      setLoaderState("complete");
       return;
     }
 
@@ -283,6 +274,7 @@ export default function Homehero() {
         hasCompletedEntranceOnce = true;
         document.body.style.overflow = "";
         if (typeof window !== "undefined") {
+          (window as any).__hasCompletedEntrance = true;
           (window as any).__heroAnimationComplete = true;
           window.dispatchEvent(new CustomEvent("hero-animation-complete"));
         }
@@ -370,6 +362,11 @@ export default function Homehero() {
     const safetyTimeout = setTimeout(startVideoExpansion, 7000);
 
     return () => {
+      if (typeof window !== "undefined" && window.location.pathname !== "/") {
+        hasCompletedEntranceOnce = true;
+        (window as any).__hasCompletedEntrance = true;
+        (window as any).__heroAnimationComplete = true;
+      }
       if (cycleTimer) clearInterval(cycleTimer);
       if (videoHoldTimer) clearTimeout(videoHoldTimer);
       clearTimeout(safetyTimeout);
@@ -383,14 +380,14 @@ export default function Homehero() {
   return (
     <section
       className={`min-h-[400px] h-[75vh] lg:h-screen w-full relative flex flex-col justify-end overflow-hidden pb-8 lg:pb-16 px-4 md:px-8 lg:px-16 ${
-        isComplete ? "bg-black" : "bg-[#FAF6F2]"
+        isComplete ? "bg-black" : "bg-[#ffffff]"
       } border-none outline-none`}
     >
       {/* 1. Pure White Canvas Overlay (Behind cloth sheet, active during loader) */}
       {!isComplete && (
         <div
           ref={whiteBackdropRef}
-          className="fixed inset-0 z-20 bg-[#FAF6F2] pointer-events-none"
+          className="fixed inset-0 z-20 bg-[#ffffff] pointer-events-none"
         />
       )}
 

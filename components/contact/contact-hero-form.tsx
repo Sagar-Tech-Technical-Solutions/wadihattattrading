@@ -131,7 +131,7 @@ export default function ContactHeroForm() {
   };
 
   const whatsappDirectUrl =
-    "https://wa.me/971526474325?text=" +
+    "https://wa.me/97143536515?text=" +
     encodeURIComponent(
       `Hello Wadi Hattat Trading, I am reaching out from your website contact page regarding ${selectedInquiry} inquiries.`,
     );
@@ -162,7 +162,7 @@ export default function ContactHeroForm() {
           {/* 2x2 Grid of Contact Details */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-white/15">
             {/* 1. Location */}
-            <div className="space-y-1">
+            <div className="space-y-2">
               <h4 className="text-xs uppercase tracking-[0.2em] font-semibold text-[#ddaf4d]">
                 Location
               </h4>
@@ -179,22 +179,22 @@ export default function ContactHeroForm() {
             </div>
 
             {/* 2. Social Media */}
-            <div className="space-y-1">
+            <div className="space-y-2">
               <h4 className="text-xs uppercase tracking-[0.2em] font-semibold text-[#ddaf4d]">
                 Social Media
               </h4>
               <ul className="text-xs text-neutral-600 font-light space-y-0.5">
                 <li>
                   <a
-                    href="https://instagram.com"
+                    href="https://www.instagram.com/wadi_hattat.ae"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-white transition-colors"
+                    className="hover:text-dark-gold transition-colors"
                   >
-                    Instagram: @wadihattat
+                    Instagram: @wadi_hattat.ae
                   </a>
                 </li>
-                <li>
+                {/* <li>
                   <a
                     href={whatsappDirectUrl}
                     target="_blank"
@@ -203,22 +203,19 @@ export default function ContactHeroForm() {
                   >
                     WhatsApp Desk
                   </a>
-                </li>
-                <li>
-                  <span className="text-neutral-600">LinkedIn • Facebook</span>
-                </li>
+                </li> */}
               </ul>
             </div>
 
             {/* 3. Email */}
-            <div className="space-y-1">
+            <div className="space-y-2">
               <h4 className="text-xs uppercase tracking-[0.2em] font-semibold text-[#ddaf4d]">
                 Email
               </h4>
               <p className="text-xs font-light">
                 <a
                   href="mailto:whtdxb@gmail.com"
-                  className="text-neutral-600 transition-colors block"
+                  className="text-neutral-600 hover:text-dark-gold transition-colors block"
                 >
                   whtdxb@gmail.com
                 </a>
@@ -226,24 +223,63 @@ export default function ContactHeroForm() {
             </div>
 
             {/* 4. Contact */}
-            <div className="space-y-1">
+            <div className="space-y-2">
               <h4 className="text-xs uppercase tracking-[0.2em] font-semibold text-[#ddaf4d]">
                 Contact
               </h4>
-              <p className="text-xs font-mono text-neutral-600 font-light space-y-0.5">
-                <a
-                  href="tel:+971526474325"
-                  className="block hover:text-[#ddaf4d] transition-colors"
-                >
-                  +971 52 647 4325
-                </a>
-                <a
-                  href="tel:+97143536515"
-                  className="block text-neutral-600 hover:text-[#ddaf4d] transition-colors"
-                >
-                  +971 4 353 6515
-                </a>
-              </p>
+              <ul className="space-y-2 text-[13px] sm:text-[14px] font-light text-neutral-800">
+                {/* 1. WhatsApp & Mobile */}
+                <li className="flex items-start gap-3">
+                  <div className="w-5 h-5 shrink-0 mt-0.5 text-[#25D366] flex items-center justify-center">
+                    <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                      <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.311.045-.698.057-1.111-.073-.252-.08-.574-.187-.98-.364-1.728-.751-2.857-2.51-2.944-2.625-.087-.115-.705-.939-.705-1.791 0-.852.448-1.27.608-1.442.16-.172.35-.215.467-.215.117 0 .234.001.336.006.107.005.25-.041.391.298.144.348.491 1.2.535 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.174.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.174.232-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.158.572 4.186 1.572 5.941l-1.668 6.096 6.277-1.644c1.706.929 3.652 1.455 5.723 1.455 6.627 0 12-5.373 12-12 0-6.627-5.373-12-12-12zm0 21.848c-1.897 0-3.664-.537-5.166-1.464l-.37-.229-3.714.974.991-3.619-.25-.398c-1.026-1.636-1.571-3.535-1.571-5.503 0-5.438 4.422-9.86 9.864-9.86 5.441 0 9.864 4.422 9.864 9.86 0 5.439-4.423 9.861-9.864 9.861z" />
+                    </svg>
+                  </div>
+                  <div>
+                    {/* <span className="block text-[10px] uppercase tracking-wider text-[#8b8fa8]">
+                      WhatsApp &amp; Mobile
+                    </span> */}
+                    <a
+                      href="https://wa.me/97143536515"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="transition-colors hover:text-dark-gold text-[13px] font-medium"
+                    >
+                      +971 4 353 6515
+                    </a>
+                  </div>
+                </li>
+
+                {/* 2. Office Landline */}
+                <li className="flex items-start gap-3">
+                  <div className="w-5 h-5 shrink-0 mt-0.5 text-neutral-800 flex items-center justify-center">
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={1.75}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    {/* <span className="block text-[10px] uppercase tracking-wider text-[#8b8fa8]">
+                      Office Landline
+                    </span> */}
+                    <a
+                      href="tel:+97143536515"
+                      className="transition-colors hover:text-dark-gold text-[13px] font-medium"
+                    >
+                      +971 4 353 6515
+                    </a>
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
         </Reveal>

@@ -38,7 +38,7 @@ export default function AboutCta() {
                   <strong className="font-medium text-neutral-900 block">
                     Direct Inquiries:
                   </strong>
-                  whtdxb@gmail.com • +971 52 647 4325
+                  whtdxb@gmail.com • +971 4 353 6515
                 </div>
               </div>
             </div>
@@ -53,7 +53,7 @@ export default function AboutCta() {
               </Link>
 
               <a
-                href="https://wa.me/971526474325?text=Hello%20Wadi%20Hattat%20Trading%2C%20I%20would%20like%20to%20discuss%20a%20wholesale%20fabric%20partnership."
+                href="https://wa.me/97143536515?text=Hello%20Wadi%20Hattat%20Trading%2C%20I%20would%20like%20to%20discuss%20a%20wholesale%20fabric%20partnership."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-7 py-3.5 bg-[#25D366] hover:bg-[#20ba59] text-white text-xs uppercase tracking-wider font-semibold rounded-full transition-all duration-300 text-center shadow-sm cursor-pointer"

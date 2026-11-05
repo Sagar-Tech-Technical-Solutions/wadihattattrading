@@ -39,7 +39,7 @@ const brandFooter = `
       <td style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; color: #6b7280; line-height: 1.6;">
         <strong style="color: #111827;">Wadi Hattat Trading Co. LLC</strong><br />
         Main Showroom: Al Sabkha, Deira • Branches across Bur Dubai, UAE<br />
-        Phone: <a href="tel:+971526474325" style="color: #ddaf4d; text-decoration: none;">+971 52 647 4325</a> &nbsp;|&nbsp;
+        Phone: <a href="tel:+97143536515" style="color: #ddaf4d; text-decoration: none;">+971 4 353 6515</a> &nbsp;|&nbsp;
         Email: <a href="mailto:whtdxb@gmail.com" style="color: #ddaf4d; text-decoration: none;">whtdxb@gmail.com</a><br />
         <span style="font-size: 11px; color: #9ca3af; margin-top: 8px; display: inline-block;">
           Rooted in Oman. Growing from Dubai. Connecting Textile Markets Worldwide.
@@ -192,7 +192,7 @@ export function getContactUserAckEmail(data: ContactFormData) {
     </div>
 
     <p style="font-size: 13px; line-height: 1.6; color: #6b7280;">
-      If your requirement is urgent, you can also connect directly with our Dubai sales desk via WhatsApp at <a href="https://wa.me/971526474325" style="color: #25D366; text-decoration: none; font-weight: 600;">+971 52 647 4325</a>.
+      If your requirement is urgent, you can also connect directly with our Dubai sales desk via WhatsApp at <a href="https://wa.me/97143536515" style="color: #25D366; text-decoration: none; font-weight: 600;">+971 4 353 6515</a>.
     </p>
   `;
 

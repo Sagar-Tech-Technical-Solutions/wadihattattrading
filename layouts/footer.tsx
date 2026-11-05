@@ -1,11 +1,46 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { menuLinks } from "@/data/links";
 import Image from "next/image";
 
 const currentYear = 2026;
 
 export default function Footer() {
+  const pathname = usePathname();
+
+  const handleLinkClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
+    if (href === "/") {
+      if (pathname === "/") {
+        e.preventDefault();
+      }
+      if (typeof window !== "undefined") {
+        const lenis = (
+          window as unknown as {
+            lenis?: {
+              scrollTo: (
+                y: number,
+                opts?: { immediate?: boolean; duration?: number },
+              ) => void;
+            };
+          }
+        ).lenis;
+        if (lenis) {
+          lenis.scrollTo(0, { immediate: pathname !== "/", duration: 1.2 });
+        } else {
+          window.scrollTo({
+            top: 0,
+            behavior: pathname === "/" ? "smooth" : "auto",
+          });
+        }
+      }
+    }
+  };
   return (
     <footer className="w-full bg-[#070913] relative">
       <div className="max-w-[1400px] mx-auto  text-white px-5 py-10 sm:p-10 md:p-14 lg:p-16 shadow-2xl  overflow-hidden">
@@ -40,6 +75,7 @@ export default function Footer() {
             <div className="lg:col-span-7 space-y-6 sm:space-y-7">
               <Link
                 href="/"
+                onClick={(e) => handleLinkClick(e, "/")}
                 className={`relative transition-all duration-300 w-14 h-14 sm:w-20 sm:h-20 block hover:scale-105`}
               >
                 <Image
@@ -111,6 +147,7 @@ export default function Footer() {
                     <li key={link.name}>
                       <Link
                         href={link.href}
+                        // onClick={(e) => handleLinkClick(e, link.href)}
                         className="hover:text-white transition-colors block py-0.5"
                       >
                         {link.name}
@@ -138,12 +175,12 @@ export default function Footer() {
                       WhatsApp &amp; Mobile
                     </span> */}
                       <a
-                        href="https://wa.me/971526474325"
+                        href="https://wa.me/97143536515"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="hover:text-white transition-colors font-mono"
                       >
-                        +971 52 647 4325
+                        +971 4 353 6515
                       </a>
                     </div>
                   </li>

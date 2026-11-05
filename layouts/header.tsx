@@ -4,52 +4,90 @@ import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import gsap from "gsap";
 import { menuLinks } from "@/data/links";
-
-interface NavItem {
-  name: string;
-  href: string;
-}
-
-let hasHeaderRevealed = false;
 
 export default function Header() {
   const pathname = usePathname();
   const isHomepage = pathname === "/";
   const hasTransparentHeader =
     pathname === "/" || pathname === "/about-us" || pathname === "/fabrics";
-  const headerRef = useRef<HTMLElement>(null);
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const prevPathnameRef = useRef(pathname);
   const lastScrollYRef = useRef(0);
+  const isNavigatingRef = useRef(false);
+  const navigationTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Track navigation to home from other pages & close menus on route change
+  // Handle route changes and history navigation (back/forward button)
   useEffect(() => {
-    if (prevPathnameRef.current !== pathname) {
-      if (
-        typeof window !== "undefined" &&
-        pathname === "/" &&
-        prevPathnameRef.current !== "/"
-      ) {
-        (
-          window as unknown as { __isClientNavToHome?: boolean }
-        ).__isClientNavToHome = true;
+    isNavigatingRef.current = true;
+    setIsVisible(true);
+    setMobileMenuOpen(false);
+
+    if (typeof window !== "undefined") {
+      window.scrollTo(0, 0);
+      if (pathname !== "/") {
+        (window as any).__hasCompletedEntrance = true;
       }
-      prevPathnameRef.current = pathname;
-      setMobileMenuOpen(false);
-      setIsVisible(true);
-      lastScrollYRef.current =
-        typeof window !== "undefined" ? window.scrollY : 0;
-      setIsScrolled(
-        typeof window !== "undefined" ? window.scrollY > 20 : false,
-      );
     }
+
+    if (navigationTimerRef.current) {
+      clearTimeout(navigationTimerRef.current);
+    }
+
+    const syncScrollState = () => {
+      if (typeof window !== "undefined") {
+        const currentY = Math.max(0, window.scrollY);
+        lastScrollYRef.current = currentY;
+        setIsScrolled(currentY > 20);
+        setIsVisible(true);
+      }
+    };
+
+    syncScrollState();
+
+    // Re-verify after DOM and browser scroll settlement
+    navigationTimerRef.current = setTimeout(() => {
+      isNavigatingRef.current = false;
+      syncScrollState();
+    }, 350);
+
+    return () => {
+      if (navigationTimerRef.current) {
+        clearTimeout(navigationTimerRef.current);
+      }
+    };
   }, [pathname]);
+
+  // Listen to popstate (browser back/forward button) specifically
+  // useEffect(() => {
+  //   const handlePopState = () => {
+  //     isNavigatingRef.current = true;
+  //     setIsVisible(true);
+
+  //     requestAnimationFrame(() => {
+  //       const y =
+  //         typeof window !== "undefined" ? Math.max(0, window.scrollY) : 0;
+  //       lastScrollYRef.current = y;
+  //       setIsScrolled(y > 20);
+  //       setIsVisible(true);
+  //     });
+
+  //     setTimeout(() => {
+  //       isNavigatingRef.current = false;
+  //       const y =
+  //         typeof window !== "undefined" ? Math.max(0, window.scrollY) : 0;
+  //       lastScrollYRef.current = y;
+  //       setIsScrolled(y > 20);
+  //       setIsVisible(true);
+  //     }, 350);
+  //   };
+
+  //   window.addEventListener("popstate", handlePopState);
+  //   return () => window.removeEventListener("popstate", handlePopState);
+  // }, []);
 
   // Prevent background scroll when mobile drawer is open
   useEffect(() => {
@@ -63,19 +101,25 @@ export default function Header() {
     };
   }, [mobileMenuOpen]);
 
-  // Unified scroll handler: slide up header on scroll down, slide down on scroll up
+  // Unified scroll handler: slide up on scroll down, slide down on scroll up
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      const lastScrollY = lastScrollYRef.current;
-      const diff = currentScrollY - lastScrollY;
+      const currentScrollY =
+        typeof window !== "undefined" ? Math.max(0, window.scrollY) : 0;
 
       setIsScrolled(currentScrollY > 20);
 
-      // Always show at top of page or when mobile menu is open
-      if (currentScrollY <= 40 || mobileMenuOpen) {
+      // During page navigation transitions or near top of page, always keep header visible
+      if (isNavigatingRef.current || currentScrollY <= 60 || mobileMenuOpen) {
         setIsVisible(true);
-      } else if (diff > 8) {
+        lastScrollYRef.current = currentScrollY;
+        return;
+      }
+
+      const lastScrollY = lastScrollYRef.current;
+      const diff = currentScrollY - lastScrollY;
+
+      if (diff > 8) {
         // Scrolling down -> slide up (hide)
         setIsVisible(false);
       } else if (diff < -8) {
@@ -88,67 +132,32 @@ export default function Header() {
 
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [mobileMenuOpen]);
-
-  // Synchronize header reveal with the cinematic fabric loader
-  useEffect(() => {
-    if (!isHomepage || hasHeaderRevealed) {
-      if (headerRef.current) {
-        gsap.set(headerRef.current, { opacity: 1, y: 0, clearProps: "all" });
-      }
-      return;
-    }
-
-    if (headerRef.current) {
-      gsap.set(headerRef.current, { opacity: 0, y: -16 });
-    }
-
-    const onReveal = () => {
-      hasHeaderRevealed = true;
-      if (headerRef.current) {
-        gsap.to(headerRef.current, {
-          opacity: 1,
-          y: 0,
-          duration: 0.65,
-          ease: "power2.out",
-          clearProps: "transform",
-        });
-      }
-    };
-
-    window.addEventListener("fabric-loader-reveal", onReveal);
-    const safetyTimer = setTimeout(onReveal, 8500);
 
     return () => {
-      window.removeEventListener("fabric-loader-reveal", onReveal);
-      clearTimeout(safetyTimer);
+      window.removeEventListener("scroll", handleScroll);
     };
-  }, [isHomepage]);
+  }, [mobileMenuOpen]);
 
   // Header is white when scrolled, when on pages without transparent hero, or when mobile menu is open
   const isWhite = !hasTransparentHeader || isScrolled || mobileMenuOpen;
 
+  // Simple slide-up / slide-down class
+  const visibilityClass =
+    isVisible || mobileMenuOpen
+      ? "translate-y-0 pointer-events-auto"
+      : "-translate-y-full pointer-events-none";
+
   return (
     <>
-      {/* Main Full-Width Header Container - Outer px-4 md:px-8 lg:px-16 matching categories */}
+      {/* Main Full-Width Header Container */}
       <header
         id="site-header"
-        ref={headerRef}
-        style={{
-          opacity: hasHeaderRevealed || !isHomepage ? 1 : 0,
-        }}
-        className={`fixed top-0 z-50 inset-x-0 w-full max-w-[100vw] box-border px-4 sm:px-6 md:px-8 lg:px-16 transition-all duration-300 ease-in-out ${
-          isVisible || mobileMenuOpen
-            ? "translate-y-0 pointer-events-auto"
-            : "-translate-y-full pointer-events-none"
-        } ${
+        className={`fixed top-0 z-50 inset-x-0 w-full max-w-[100vw] box-border px-4 sm:px-6 md:px-8 lg:px-16 transition-transform duration-300 ease-in-out ${visibilityClass} ${
           isWhite
             ? "bg-white text-black " + (isScrolled ? "shadow-sm " : "")
             : "bg-transparent text-white"
         }`}
       >
-        {/* Width matching categories section */}
         <div className="w-full max-w-[1400px] mx-auto">
           <div className="flex items-center justify-between py-3 w-full">
             {/* 1. LEFT: Logo */}
@@ -204,7 +213,7 @@ export default function Header() {
                     href={item.href}
                     className={`text-[11px] uppercase tracking-[0.14em] font-normal transition-colors duration-200 ${
                       isActive
-                        ? "text-dark-gold font-medium"
+                        ? "underline underline-offset-8 font-medium"
                         : isWhite
                           ? "text-neutral-800 hover:text-dark-gold"
                           : "text-white/90 hover:text-gold"
@@ -271,11 +280,7 @@ export default function Header() {
         />
       )}
 
-      {/* ============================================================== */}
-      {/* 5. FULL-HEIGHT MOBILE DRAWER (w-[80%] with rich details)       */}
-      {/* ============================================================== */}
-
-      {/* Backdrop overlay */}
+      {/* Side-Drawer Backdrop */}
       <div
         className={`fixed inset-0 z-50 bg-black/60 backdrop-blur-xs transition-opacity duration-300 lg:hidden ${
           mobileMenuOpen
@@ -286,7 +291,7 @@ export default function Header() {
         aria-hidden="true"
       />
 
-      {/* Side-Drawer Container (Full Height, w-[80%] max-w-[400px]) */}
+      {/* Side-Drawer Container */}
       <aside
         aria-label="Mobile Navigation"
         className={`fixed top-0 bottom-0 right-0 z-50 w-[80%] sm:w-[70%] max-w-[400px] h-full bg-white text-neutral-900 shadow-2xl flex flex-col transition-all duration-300 ease-in-out lg:hidden ${
@@ -295,12 +300,11 @@ export default function Header() {
             : "translate-x-full opacity-0 invisible pointer-events-none"
         }`}
       >
-        {/* Top Header of Drawer: Logo + Close Button */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-neutral-100 shrink-0">
           <Link
             href="/"
             onClick={() => setMobileMenuOpen(false)}
-            className="flex items-center gap-3 "
+            className="flex items-center gap-3"
           >
             <div className="relative w-9 h-9">
               <Image
@@ -335,7 +339,6 @@ export default function Header() {
           </button>
         </div>
 
-        {/* Scrollable Drawer Content: Only Menu Links */}
         <div className="flex-1 overflow-y-auto px-6 py-6 flex flex-col justify-between">
           <nav className="flex flex-col divide-y divide-neutral-100">
             {menuLinks.map((item) => {
@@ -378,13 +381,17 @@ export default function Header() {
             })}
           </nav>
 
-          {/* Drawer Footer Contact Note */}
           <div className="pt-6 border-t border-neutral-100 mt-auto text-xs text-neutral-400 space-y-1">
             <p className="font-mono uppercase tracking-wider text-[11px] text-neutral-500">
               Dubai Showrooms
             </p>
             <p className="font-light">Deira &amp; Bur Dubai, UAE</p>
-            <p className="font-mono text-neutral-600 pt-1">+971 52 647 4325</p>
+            <a
+              href="tel:+97143536515"
+              className="block font-mono text-neutral-600 hover:text-black pt-1 transition-colors"
+            >
+              +971 4 353 6515
+            </a>
           </div>
         </div>
       </aside>
