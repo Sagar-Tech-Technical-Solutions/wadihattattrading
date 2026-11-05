@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { usePathname } from "next/navigation";
 import { Translate, Check, CaretDown } from "@phosphor-icons/react/dist/ssr";
 
 declare global {
@@ -13,23 +12,23 @@ declare global {
       };
     };
     __gtPatched?: boolean;
-    __heroAnimationComplete?: boolean;
   }
 }
 
-// languages offered in the manual switcher
-const LANGS: { code: string; label: string }[] = [
-  { code: "en", label: "English" },
-  { code: "ar", label: "العربية" },
+const LANGS: { code: string; label: string; short: string }[] = [
+  { code: "en", label: "English", short: "EN" },
+  { code: "ar", label: "العربية", short: "AR" },
 ];
 
-/** current target language from the googtrans cookie ("/en/hi" → "hi") */
+/** Read current target language from googtrans cookie */
 function currentGoogTrans(): string {
+  if (typeof document === "undefined") return "en";
   const m = document.cookie.match(/googtrans=\/[^/]*\/([^;]+)/);
   return m ? decodeURIComponent(m[1]) : "en";
 }
 
 function setGoogTrans(lang: string) {
+  if (typeof window === "undefined") return;
   const hostname = window.location.hostname;
   const parts = hostname.split(".");
   const domains: string[] = ["", `.${hostname}`];
@@ -71,7 +70,17 @@ function patchDom() {
 }
 
 function loadWidget() {
+  if (typeof window === "undefined") return;
   if (document.getElementById("google-translate-script")) return;
+
+  // Ensure hidden mount point exists in DOM
+  if (!document.getElementById("google_translate_element")) {
+    const el = document.createElement("div");
+    el.id = "google_translate_element";
+    el.setAttribute("aria-hidden", "true");
+    document.body.appendChild(el);
+  }
+
   window.googleTranslateElementInit = () => {
     if (!window.google?.translate) return;
     new window.google.translate.TranslateElement(
@@ -79,6 +88,7 @@ function loadWidget() {
       "google_translate_element",
     );
   };
+
   const s = document.createElement("script");
   s.id = "google-translate-script";
   s.src =
@@ -87,66 +97,31 @@ function loadWidget() {
   document.body.appendChild(s);
 }
 
-export default function GoogleTranslate() {
-  const pathname = usePathname();
-  const isHomepage = pathname === "/";
-  const [isVisible, setIsVisible] = useState(!isHomepage);
+interface GoogleTranslateProps {
+  isWhite?: boolean;
+  compact?: boolean;
+  inDrawer?: boolean;
+}
 
+export default function GoogleTranslate({
+  isWhite = false,
+  compact = false,
+  inDrawer = false,
+}: GoogleTranslateProps) {
   const [lang, setLang] = useState("en");
   const [open, setOpen] = useState(false);
   const boxRef = useRef<HTMLDivElement>(null);
 
-  // On homepage, delay appearance until hero entrance animation completes
-  useEffect(() => {
-    if (!isHomepage) {
-      setIsVisible(true);
-      return;
-    }
-
-    if (
-      typeof window !== "undefined" &&
-      (window as any).__heroAnimationComplete
-    ) {
-      setIsVisible(true);
-      return;
-    }
-
-    const onComplete = () => {
-      setIsVisible(true);
-    };
-
-    const onReveal = () => {
-      setTimeout(onComplete, 800);
-    };
-
-    window.addEventListener("hero-animation-complete", onComplete);
-    window.addEventListener("fabric-loader-reveal", onReveal);
-
-    const safetyTimer = setTimeout(onComplete, 4500);
-
-    return () => {
-      window.removeEventListener("hero-animation-complete", onComplete);
-      window.removeEventListener("fabric-loader-reveal", onReveal);
-      clearTimeout(safetyTimer);
-    };
-  }, [isHomepage]);
-
   useEffect(() => {
     patchDom();
-    let cancelled = false;
-
-    // Force clear the googtrans cookie on every load to ensure it starts in English
-    setGoogTrans("en");
-    if (!cancelled) setLang("en");
-
     loadWidget();
-
-    return () => {
-      cancelled = true;
-    };
+    const active = currentGoogTrans();
+    if (active && (active === "en" || active === "ar")) {
+      setLang(active);
+    }
   }, []);
 
-  // close the dropdown on outside click
+  // Close dropdown on outside click
   useEffect(() => {
     if (!open) return;
     const onDoc = (e: MouseEvent) => {
@@ -160,97 +135,130 @@ export default function GoogleTranslate() {
 
   const onChange = (code: string) => {
     setLang(code);
+    setGoogTrans(code);
 
-    // Find the hidden Google Translate select element and trigger a change
     const select = document.querySelector<HTMLSelectElement>(".goog-te-combo");
     if (select) {
       select.value = code;
       select.dispatchEvent(new Event("change"));
+    } else {
+      window.location.reload();
     }
   };
 
-  const selectValue = LANGS.some((l) => l.code === lang) ? lang : "en";
-  const currentLabel =
-    LANGS.find((l) => l.code === selectValue)?.label ?? "English";
+  const currentOption = LANGS.find((l) => l.code === lang) || LANGS[0];
+
+  // Render full width buttons inside mobile drawer
+  if (inDrawer) {
+    return (
+      <div translate="no" className="notranslate space-y-2">
+        <p className="font-mono uppercase tracking-wider text-[11px] text-neutral-500">
+          Language / اللغة
+        </p>
+        <div className="grid grid-cols-2 gap-2">
+          {LANGS.map((item) => {
+            const active = item.code === lang;
+            return (
+              <button
+                key={item.code}
+                type="button"
+                onClick={() => onChange(item.code)}
+                className={`py-2 px-3 text-xs rounded-lg border text-center transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+                  active
+                    ? "border-neutral-900 bg-neutral-900 text-white font-medium"
+                    : "border-neutral-200 text-neutral-700 hover:border-neutral-400 bg-neutral-50"
+                }`}
+              >
+                <span>{item.label}</span>
+                {active && <Check size={12} weight="bold" />}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <>
-      {/* hidden Google mount point */}
-      <div id="google_translate_element" aria-hidden />
-
-      {/* language switcher — Google Translate style */}
-      <div
-        ref={boxRef}
-        translate="no"
-        className={`notranslate fixed bottom-4 left-4 z-40 transition-all duration-700 ease-out ${
-          isVisible
-            ? "opacity-100 translate-y-0 pointer-events-auto"
-            : "opacity-0 translate-y-4 pointer-events-none"
+    <div
+      ref={boxRef}
+      translate="no"
+      className="notranslate relative inline-flex items-center"
+    >
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        aria-label="Change language"
+        aria-expanded={open}
+        className={`text-[11px] uppercase tracking-[0.14em] font-medium py-1 px-1 flex items-center gap-1.5 cursor-pointer select-none transition-colors duration-200 ${
+          isWhite
+            ? "text-neutral-800 hover:text-dark-gold"
+            : "text-white/90 hover:text-gold"
         }`}
       >
-        {open && (
-          <div className="absolute bottom-full left-0 mb-2 w-60 overflow-hidden rounded-2xl border border-line bg-white shadow-[0_30px_70px_-22px_rgba(6,42,32,0.55)]">
-            <div className="flex items-center gap-2 border-b border-line px-4 py-2.5">
-              <Translate size={15} weight="fill" className="text-[#4285F4]" />
-              <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-ink-soft">
-                Translate this page
-              </span>
-            </div>
-            <div className="max-h-72 overflow-y-auto py-1.5">
-              {LANGS.map((l) => {
-                const active = l.code === selectValue;
-                return (
-                  <button
-                    key={l.code}
-                    type="button"
-                    onClick={() => {
-                      setOpen(false);
-                      if (l.code !== selectValue) onChange(l.code);
-                    }}
-                    className={`flex w-full items-center justify-between gap-3 px-4 py-2 text-left text-[13.5px] transition-colors hover:bg-paper ${
-                      active ? "font-semibold text-brand-deep" : "text-ink"
-                    }`}
-                  >
-                    <span>{l.label}</span>
-                    {active && (
-                      <Check size={14} weight="bold" className="text-brand" />
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-            <div className="flex items-center gap-1.5 border-t border-line bg-paper px-4 py-2 text-[11px] text-ink-faint">
-              <span className="inline-flex gap-0.5" aria-hidden>
-                <span className="h-2 w-2 rounded-full bg-[#4285F4]" />
-                <span className="h-2 w-2 rounded-full bg-[#EA4335]" />
-                <span className="h-2 w-2 rounded-full bg-[#FBBC05]" />
-                <span className="h-2 w-2 rounded-full bg-[#34A853]" />
-              </span>
-              Powered by Google Translate
-            </div>
-          </div>
-        )}
+        <Translate
+          size={14}
+          weight="regular"
+          className={isWhite ? "text-neutral-600" : "text-white/80"}
+        />
+        <span>{compact ? currentOption.short : currentOption.label}</span>
+        <CaretDown
+          size={10}
+          weight="bold"
+          className={`transition-transform duration-200 ${
+            open ? "rotate-180" : ""
+          } ${isWhite ? "text-neutral-500" : "text-white/70"}`}
+        />
+      </button>
 
-        <button
-          type="button"
-          onClick={() => setOpen((o) => !o)}
-          aria-label="Change language"
-          aria-expanded={open}
-          className="flex items-center gap-2 rounded-full border border-line bg-white/95 py-2 pl-3.5 pr-3 shadow-[0_12px_30px_-14px_rgba(6,42,32,0.45)] backdrop-blur transition-shadow hover:shadow-[0_16px_36px_-14px_rgba(6,42,32,0.5)] cursor-pointer"
-        >
-          <Translate size={18} weight="fill" className="text-[#4285F4]" />
-          <span className="text-[13px] font-semibold text-ink">
-            {currentLabel}
-          </span>
-          <CaretDown
-            size={12}
-            weight="bold"
-            className={`text-ink-faint transition-transform ${
-              open ? "rotate-180" : ""
-            }`}
-          />
-        </button>
-      </div>
-    </>
+      {open && (
+        <div className="absolute top-full right-0 mt-2 w-48 overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-2xl py-1.5 z-50 text-neutral-900 animate-in fade-in zoom-in-95 duration-150">
+          <div className="flex items-center gap-2 border-b border-neutral-100 px-3.5 py-2">
+            <Translate size={14} weight="fill" className="text-[#4285F4]" />
+            <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-neutral-500">
+              Translate Website
+            </span>
+          </div>
+          <div className="py-1">
+            {LANGS.map((l) => {
+              const active = l.code === lang;
+              return (
+                <button
+                  key={l.code}
+                  type="button"
+                  onClick={() => {
+                    setOpen(false);
+                    if (l.code !== lang) onChange(l.code);
+                  }}
+                  className={`flex w-full items-center justify-between px-3.5 py-2 text-left text-xs transition-colors hover:bg-neutral-50 cursor-pointer ${
+                    active
+                      ? "font-semibold text-neutral-950 bg-neutral-50/80"
+                      : "text-neutral-700"
+                  }`}
+                >
+                  <span>{l.label}</span>
+                  {active && (
+                    <Check
+                      size={13}
+                      weight="bold"
+                      className="text-neutral-900"
+                    />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+          <div className="flex items-center gap-1.5 border-t border-neutral-100 bg-neutral-50 px-3.5 py-1.5 text-[10px] text-neutral-400">
+            <span className="inline-flex gap-0.5" aria-hidden>
+              <span className="h-1.5 w-1.5 rounded-full bg-[#4285F4]" />
+              <span className="h-1.5 w-1.5 rounded-full bg-[#EA4335]" />
+              <span className="h-1.5 w-1.5 rounded-full bg-[#FBBC05]" />
+              <span className="h-1.5 w-1.5 rounded-full bg-[#34A853]" />
+            </span>
+            <span>Google Translate</span>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }

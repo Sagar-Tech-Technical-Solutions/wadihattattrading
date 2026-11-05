@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { menuLinks } from "@/data/links";
+import GoogleTranslate from "@/components/ui/google-translate";
 
 export default function Header() {
   const pathname = usePathname();
@@ -182,7 +183,7 @@ export default function Header() {
             </div>
 
             {/* 2. DESKTOP NAV */}
-            <nav className="hidden lg:flex items-center gap-7 xl:gap-8">
+            <nav className="hidden lg:flex items-center gap-6 xl:gap-7">
               {menuLinks.map((item) => {
                 const isActive = pathname === item.href;
                 const isContact = item.name === "Contact Us";
@@ -223,10 +224,25 @@ export default function Header() {
                   </Link>
                 );
               })}
+
+              <span
+                className={`h-3.5 w-[1px] ${
+                  isWhite ? "bg-neutral-300" : "bg-white/25"
+                }`}
+                aria-hidden="true"
+              />
+              <GoogleTranslate isWhite={isWhite} />
             </nav>
 
-            {/* 3. MOBILE: Drawer toggle button (Hidden on desktop) */}
-            <div className="flex items-center lg:hidden shrink-0 ml-auto">
+            {/* 3. MOBILE: Language switcher + Drawer toggle button */}
+            <div className="flex items-center gap-3 lg:hidden shrink-0 ml-auto">
+              <GoogleTranslate isWhite={isWhite} compact />
+              <span
+                className={`h-3.5 w-[1px] ${
+                  isWhite ? "bg-neutral-300" : "bg-white/25"
+                }`}
+                aria-hidden="true"
+              />
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 type="button"
@@ -381,7 +397,12 @@ export default function Header() {
             })}
           </nav>
 
-          <div className="pt-6 border-t border-neutral-100 mt-auto text-xs text-neutral-400 space-y-1">
+          {/* Mobile Drawer Language Switcher */}
+          <div className="pt-6 border-t border-neutral-100 mt-auto">
+            <GoogleTranslate inDrawer />
+          </div>
+
+          <div className="pt-5 border-t border-neutral-100 mt-5 text-xs text-neutral-400 space-y-1">
             <p className="font-mono uppercase tracking-wider text-[11px] text-neutral-500">
               Dubai Showrooms
             </p>

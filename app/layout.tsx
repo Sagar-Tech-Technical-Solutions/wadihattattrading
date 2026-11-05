@@ -6,7 +6,6 @@ import { Suspense } from "react";
 import Header from "@/layouts/header";
 import Footer from "@/layouts/footer";
 import SmoothScroll from "@/layouts/smooth-scroll";
-import GoogleTranslate from "@/components/ui/google-translate";
 import WhatsAppFloat from "@/components/ui/whatsapp-float";
 // import CustomCursor from "@/components/ui/custom-cursor";
 
@@ -88,7 +87,6 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         {/* <SmoothScroll> */}
         <Header />
         <div className="flex-1">{children}</div>
-        <GoogleTranslate />
         <Footer />
         <WhatsAppFloat />
         {/* </SmoothScroll> */}
