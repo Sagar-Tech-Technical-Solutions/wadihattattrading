@@ -86,7 +86,7 @@ export default function AboutIntro() {
               <div className="relative aspect-[4/5] sm:aspect-[3/4] lg:aspect-[4/5] w-full rounded-2xl sm:rounded-3xl overflow-hidden bg-neutral-100 border border-neutral-200/80 shadow-2xl">
                 <Image
                   src="/founderr.jpeg"
-                  alt="Chairman of Wadi Hattat Trading"
+                  alt="Mr. Husain Ahamed - Chairman of Wadi Hattat Trading"
                   fill
                   sizes="(max-width: 1024px) 100vw, 42vw"
                   className="object-cover object-center transition-transform duration-700 ease-out hover:scale-105"
@@ -97,10 +97,13 @@ export default function AboutIntro() {
 
                 {/* Floating Glass Label */}
                 <div className="absolute bottom-5 inset-x-5 sm:bottom-6 sm:inset-x-6 z-10">
-                  <div className="backdrop-blur-md bg-black/45 border border-white/20 rounded-xl p-4 text-white shadow-lg">
-                    <span className="block text-[10px] uppercase tracking-[0.22em] text-[#ddaf4d] font-semibold mb-1">
+                  <div className="backdrop-blur-md bg-black/50 border border-white/20 rounded-xl p-4 text-white shadow-lg">
+                    <span className="block text-[10px] uppercase tracking-[0.22em] text-[#ddaf4d] font-semibold mb-0.5">
                       Chairman • Wadi Hattat Trading
                     </span>
+                    <h3 className="text-sm sm:text-base font-normal tracking-wide text-white mb-1.5">
+                      Mr. Husain Ahamed
+                    </h3>
                     <p className="text-xs sm:text-[13px] font-light leading-relaxed text-neutral-200">
                       Leading Wadi Hattat with enduring integrity, dedication to
                       quality, and a visionary commitment to connecting global
