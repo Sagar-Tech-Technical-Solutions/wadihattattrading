@@ -62,6 +62,9 @@ export default function WhatsAppFloat() {
   } else if (pathname === "/contact-us") {
     message =
       "Hi Wadi Hattat Trading, I would like to visit your Dubai showroom / place a wholesale enquiry.";
+  } else if (pathname.startsWith("/blog")) {
+    message =
+      "Hi Wadi Hattat Trading, I was reading your textile journal and would like to discuss fabric sourcing.";
   }
 
   const whatsappHref = `https://wa.me/97143536515?text=${encodeURIComponent(

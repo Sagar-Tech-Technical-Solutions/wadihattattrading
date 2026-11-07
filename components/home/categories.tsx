@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import useEmblaCarousel from "embla-carousel-react";
 import { Reveal } from "@/layouts/reveal";
 import { fabrics } from "@/data/fabrics";
+import FabricSwatchCard from "@/components/fabrics/fabric-swatch-card";
 
 export default function CategoriesSection() {
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -17,17 +17,11 @@ export default function CategoriesSection() {
 
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
-  const [expandedId, setExpandedId] = useState<number | null>(null);
-
-  const toggleExpand = useCallback((id: number) => {
-    setExpandedId((prev) => (prev === id ? null : id));
-  }, []);
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
     setCanScrollPrev(emblaApi.canScrollPrev());
     setCanScrollNext(emblaApi.canScrollNext());
-    setExpandedId(null);
   }, [emblaApi]);
 
   useEffect(() => {
@@ -58,7 +52,7 @@ export default function CategoriesSection() {
   return (
     <section
       id="categories"
-      className="relative w-full bg-[#0f1329] text-white py-14 sm:py-20 lg:py-24 px-4 md:px-8 lg:px-16 overflow-hidden"
+      className="relative w-full bg-[#0f1329] text-white py-16 sm:py-20 lg:py-26 px-4 md:px-8 lg:px-16 overflow-hidden"
     >
       {/* 1. Atmospheric Radial Gradient Glow */}
       <div
@@ -88,9 +82,9 @@ export default function CategoriesSection() {
         <Reveal>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-2">
             <div>
-              {/* <span className="block text-xs font-semibold uppercase tracking-[0.24em] text-[#ddaf4d] mb-2 sm:mb-3">
+              <span className="block text-xs font-semibold uppercase tracking-[0.24em] text-[#ddaf4d] mb-2 sm:mb-3">
                 OUR SIGNATURE TEXTILES
-              </span> */}
+              </span>
               <h2 className="text-3xl sm:text-4xl lg:text-[2.6rem] text-white font-light tracking-tight leading-[1.15]">
                 Fabric Lines
               </h2>
@@ -101,15 +95,15 @@ export default function CategoriesSection() {
               </p>
             </div>
 
-            {/* <div className="shrink-0 pt-2 md:pt-0">
+            <div className="shrink-0 pt-2 md:pt-0">
               <Link
                 href="/fabrics"
-                className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.18em] font-medium px-5 py-2.5 rounded-full border border-white/20 hover:border-white text-white hover:bg-white hover:text-neutral-950 transition-all duration-300"
+                className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.18em] font-medium px-5 py-2.5 rounded-full border border-white/20 hover:border-white text-white hover:bg-white hover:text-neutral-950 transition-all duration-300 cursor-pointer"
               >
                 <span>View All Fabrics</span>
                 <span>→</span>
               </Link>
-            </div> */}
+            </div>
           </div>
         </Reveal>
 
@@ -117,89 +111,45 @@ export default function CategoriesSection() {
         <Reveal
           delay={120}
           variant="up"
-          className="relative group/slider mt-8 lg:mt-10"
+          className="relative group/slider mt-8 lg:mt-12"
         >
-          {/* Center-Left Arrow Button */}
+          {/* Center-Left Arrow Button (Aligned with Swatch Cards) */}
           <button
             type="button"
             onClick={scrollPrev}
             disabled={!canScrollPrev}
-            aria-label="Previous collection"
-            className="absolute -left-2 sm:-left-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-[#070913]/90 hover:bg-white text-white hover:text-black shadow-2xl border border-white/20 hover:border-white backdrop-blur-md flex items-center justify-center transition-all duration-300 disabled:opacity-0 disabled:pointer-events-none cursor-pointer hover:scale-105 active:scale-95"
+            aria-label="Previous fabric swatch"
+            className="absolute -left-2 sm:-left-5 top-[38%] -translate-y-1/2 z-20 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-[#070913]/90 hover:bg-white text-white hover:text-black shadow-2xl border border-white/20 hover:border-white backdrop-blur-md flex items-center justify-center transition-all duration-300 disabled:opacity-0 disabled:pointer-events-none cursor-pointer hover:scale-105 active:scale-95"
           >
             <span className="text-base select-none">←</span>
           </button>
 
           {/* Embla Viewport */}
-          <div className="overflow-hidden" ref={emblaRef}>
+          <div className="overflow-hidden py-3" ref={emblaRef}>
             {/* Embla Track */}
-            <div className="flex -ml-3.5 sm:-ml-4 lg:-ml-5 select-none touch-pan-y">
-              {fabrics.map((cat, idx) => {
-                const isExpanded = expandedId === cat.id;
-
-                return (
-                  <div
-                    key={cat.id}
-                    className="min-w-0 shrink-0 pl-3.5 sm:pl-4 lg:pl-5 basis-[70%] sm:basis-[48%] md:basis-[33.333%] lg:basis-[25%]"
-                  >
-                    <div
-                      onClick={() => toggleExpand(cat.id)}
-                      className="group relative block aspect-[3/4.2] w-full overflow-hidden rounded-xl sm:rounded-2xl bg-[#0b0e1e] border border-white/10 hover:border-[#ddaf4d]/50 transition-all duration-500 shadow-xl hover:shadow-[0_20px_45px_rgba(0,0,0,0.65)] cursor-pointer"
-                    >
-                      {/* Fabric Image */}
-                      <Image
-                        src={cat.image}
-                        alt={cat.name}
-                        fill
-                        sizes="(max-width: 640px) 78vw, (max-width: 1024px) 33vw, 60vw"
-                        priority={idx < 4}
-                        className="h-full w-full object-cover object-center pointer-events-none transition-transform duration-700 ease-out group-hover:scale-108"
-                      />
-
-                      {/* Multi-layered Vignette Overlay */}
-                      <div
-                        className={`absolute inset-0 bg-gradient-to-t from-[#070913] to-transparent pointer-events-none transition-all duration-300 ${
-                          isExpanded
-                            ? "opacity-95 from-[#070913] via-[#070913]/90 via-60%"
-                            : "group-hover:opacity-95 group-hover:from-[#070913] group-hover:via-[#070913]/85 group-hover:via-55%"
-                        }`}
-                      />
-                      <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-300 pointer-events-none" />
-
-                      {/* Card Bottom: Index, Name, Description */}
-                      <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6 z-10 flex flex-col justify-end transition-all duration-300">
-                        <span className="text-[10px] uppercase tracking-[0.2em] text-[#ddaf4d] font-semibold mb-1">
-                          {String(cat.id).padStart(2, "0")}
-                        </span>
-
-                        <h3 className="text-xl sm:text-2xl text-white font-light tracking-wide">
-                          {cat.name}
-                        </h3>
-
-                        <p
-                          className={`mt-1.5 text-[13px] text-neutral-300 font-light leading-relaxed transition-all duration-300 ${
-                            isExpanded
-                              ? "line-clamp-none"
-                              : "line-clamp-2 group-hover:line-clamp-none"
-                          }`}
-                        >
-                          {cat.description}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
+            <div className="flex -ml-4 sm:-ml-5 lg:-ml-6 select-none touch-pan-y">
+              {fabrics.map((fabric, idx) => (
+                <div
+                  key={fabric.id}
+                  className="min-w-0 shrink-0 pl-4 sm:pl-5 lg:pl-6 basis-[82%] sm:basis-[52%] md:basis-[36%] lg:basis-[28%] xl:basis-[25%]"
+                >
+                  <FabricSwatchCard
+                    fabric={fabric}
+                    idx={idx}
+                    actionType="link"
+                  />
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Center-Right Arrow Button */}
+          {/* Center-Right Arrow Button (Aligned with Swatch Cards) */}
           <button
             type="button"
             onClick={scrollNext}
             disabled={!canScrollNext}
-            aria-label="Next collection"
-            className="absolute -right-2 sm:-right-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-[#070913]/90 hover:bg-white text-white hover:text-black shadow-2xl border border-white/20 hover:border-white backdrop-blur-md flex items-center justify-center transition-all duration-300 disabled:opacity-0 disabled:pointer-events-none cursor-pointer hover:scale-105 active:scale-95"
+            aria-label="Next fabric swatch"
+            className="absolute -right-2 sm:-right-5 top-[38%] -translate-y-1/2 z-20 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-[#070913]/90 hover:bg-white text-white hover:text-black shadow-2xl border border-white/20 hover:border-white backdrop-blur-md flex items-center justify-center transition-all duration-300 disabled:opacity-0 disabled:pointer-events-none cursor-pointer hover:scale-105 active:scale-95"
           >
             <span className="text-base select-none">→</span>
           </button>

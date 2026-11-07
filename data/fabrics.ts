@@ -3,6 +3,7 @@ export interface Fabric {
   name: string;
   description: string;
   image: string;
+  keywords?: string;
 }
 
 export const fabrics: Fabric[] = [
@@ -12,6 +13,7 @@ export const fabrics: Fabric[] = [
     description:
       "Signature ultra-soft Emirati abaya silk offering an exquisite, fluid matte drape, rich color depth, and everyday breathable elegance.",
     image: "/categories/nida.jpg",
+    keywords: "Ultra-soft, fluid, matte, breathable",
   },
   {
     id: 2,
@@ -19,6 +21,7 @@ export const fabrics: Fabric[] = [
     description:
       "Fine-pebbled, satin-backed, and heavy moss weaves crafted for contemporary modest attire, tailored silhouettes, and luxury abayas.",
     image: "/categories/crepe.jpg",
+    keywords: "Fine-pebbled, textured, drape, moss weave",
   },
   {
     id: 3,
@@ -26,6 +29,7 @@ export const fabrics: Fabric[] = [
     description:
       "Featherlight, breathable scarf and headwear textiles offering gentle grip and airy comfort for effortless daily and ceremonial styling.",
     image: "/categories/sheila.jpg",
+    keywords: "Featherlight, airy, delicate, sheer",
   },
   {
     id: 4,
@@ -33,6 +37,7 @@ export const fabrics: Fabric[] = [
     description:
       "High-filament, floaty sheer chiffon with whispering-soft layers, delicate fluidity, and graceful translucent movement for overlays and scarves.",
     image: "/categories/hi-multi-chiffon.jpg",
+    keywords: "High-filament, floaty, translucent, soft",
   },
   {
     id: 5,
@@ -40,6 +45,7 @@ export const fabrics: Fabric[] = [
     description:
       "Crisp, ethereal sheer textiles with glass-like luster, delicate shimmer, and structured volume designed for couture accents and dramatic silhouettes.",
     image: "/categories/organza.jpg",
+    keywords: "Crisp, glass luster, ethereal, structured",
   },
   {
     id: 6,
@@ -47,6 +53,7 @@ export const fabrics: Fabric[] = [
     description:
       "Lustrous, fluid drape with a smooth glossy finish, ideal for luxury evening wear, bridal linings, elegant abayas, and opulent modest silhouettes.",
     image: "/fabrics/satin.jpg",
+    keywords: "Lustrous sheen, silky smooth, opulent",
   },
   {
     id: 7,
@@ -54,6 +61,7 @@ export const fabrics: Fabric[] = [
     description:
       "Pure, breathable natural opulence featuring an ultra-soft hand feel, refined sheen, and graceful movement for couture garments and bespoke designs.",
     image: "/fabrics/silk.jpg",
+    keywords: "Pure natural, refined luster, rich touch",
   },
   {
     id: 8,
@@ -61,6 +69,7 @@ export const fabrics: Fabric[] = [
     description:
       "Ultra-comfortable stretch knit fabric with exceptional drape, wrinkle resistance, and softness for effortless daily modest wear and co-ords.",
     image: "/fabrics/jersey.jpg",
+    keywords: "Stretch knit, flexible, soft, drape",
   },
   {
     id: 9,
@@ -68,6 +77,7 @@ export const fabrics: Fabric[] = [
     description:
       "Intricately woven raised patterns with rich textural depth and regal structure, crafted for festive attire, statement kaftans, and luxury outerwear.",
     image: "/fabrics/jacquard.jpg",
+    keywords: "Woven motifs, raised texture, regal",
   },
   {
     id: 10,
@@ -75,6 +85,7 @@ export const fabrics: Fabric[] = [
     description:
       "Delicate openwork motifs and scalloped borders offering sheer elegance, romantic flair, and exquisite overlay accents for couture creations.",
     image: "/fabrics/lace.jpg",
+    keywords: "Delicate openwork, scalloped, sheer",
   },
   {
     id: 11,
@@ -82,6 +93,7 @@ export const fabrics: Fabric[] = [
     description:
       "Sumptuous plush pile with radiant depth of tone and warm tactile richness, perfect for festive winter collections, formal cloaks, and luxury abayas.",
     image: "/fabrics/velvet.jpg",
+    keywords: "Plush pile, deep luster, warm luxury",
   },
   {
     id: 12,
@@ -89,6 +101,7 @@ export const fabrics: Fabric[] = [
     description:
       "Artisanal threadwork and intricate ornamental detailing designed to elevate classic textiles into heirloom-worthy modest masterpieces.",
     image: "/fabrics/embroidery.jpg",
+    keywords: "Artisanal threadwork, intricate, heirloom",
   },
   {
     id: 13,
@@ -96,6 +109,7 @@ export const fabrics: Fabric[] = [
     description:
       "Hand-embellished crystal stones and beadwork creating captivating shimmer and celestial brilliance for bridal, gala, and celebratory ensembles.",
     image: "/fabrics/crystal-handwork.jpg",
+    keywords: "Hand-set stones, radiant, bridal shimmer",
   },
   {
     id: 14,
@@ -103,6 +117,7 @@ export const fabrics: Fabric[] = [
     description:
       "Crisp, cooling, wrinkle-resistant traditional Emirati thobe fabrics with immaculate weave, subtle sheen, and tailored drape.",
     image: "/categories/kandura.jpg",
+    keywords: "Crisp weave, cooling, wrinkle-free, thobe",
   },
   {
     id: 15,
@@ -110,5 +125,6 @@ export const fabrics: Fabric[] = [
     description:
       "Visit our store for more options of fabrics that are new updated collections with different qualities, colors, and designs.",
     image: "/fabrics/other-fabrics.jpg",
+    keywords: "Custom mill runs, bespoke weaves & colors",
   },
 ];

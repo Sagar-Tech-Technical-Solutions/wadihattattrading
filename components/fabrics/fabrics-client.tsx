@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/layouts/reveal";
 import { fabrics } from "@/data/fabrics";
+import FabricSwatchCard from "./fabric-swatch-card";
 
 export default function FabricsClient() {
   return (
@@ -51,39 +51,15 @@ export default function FabricsClient() {
           </p>
         </Reveal>
 
-        {/* Fabrics Grid - Images Clean Without Overlays, Content Displayed Below Frame, No Links */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-7 sm:gap-x-10 gap-y-12 sm:gap-y-20">
+        {/* Fabrics Grid - Shared Swatch Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 sm:gap-x-8 gap-y-14 sm:gap-y-16">
           {fabrics.map((fabric, idx) => (
-            <Reveal key={fabric.id} delay={idx * 50} variant="up">
-              <div className="flex flex-col">
-                {/* Clean Image Frame - No Overlays, No Text on Top */}
-                <div className="relative aspect-[4/4.5] w-full overflow-hidden rounded-xl sm:rounded-2xl bg-[#0b0e1e] border border-white/10 shadow-xl group">
-                  <Image
-                    src={fabric.image}
-                    alt={`${fabric.name} fabric - Wadi Hattat Trading`}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    priority={idx < 3}
-                    className="object-cover object-center filter brightness-[0.96] contrast-[1.02] group-hover:scale-105 transition-transform duration-700 ease-out"
-                  />
-                </div>
-
-                {/* Content Displayed Completely Outside the Image Card - No Enquire Button, No Links */}
-                <div className="mt-4 pl-1 sm:mt-5 flex flex-col">
-                  <div className="flex items-baseline justify-between gap-3">
-                    <h3 className="font-display text-xl sm:text-2xl font-light text-white tracking-wide">
-                      {fabric.name}
-                    </h3>
-                    {/* <span className="text-xs font-mono text-[#ddaf4d] tracking-widest">
-                      {String(fabric.id).padStart(2, "0")}
-                    </span> */}
-                  </div>
-
-                  <p className="mt-2.5 text-xs sm:text-sm text-neutral-300 font-light leading-relaxed">
-                    {fabric.description}
-                  </p>
-                </div>
-              </div>
+            <Reveal key={fabric.id} delay={idx * 35} variant="up">
+              <FabricSwatchCard
+                fabric={fabric}
+                idx={idx}
+                actionType="whatsapp"
+              />
             </Reveal>
           ))}
         </div>
@@ -94,7 +70,7 @@ export default function FabricsClient() {
             <div className="absolute top-0 right-0 w-96 h-96 bg-[#ddaf4d]/10 rounded-full blur-3xl pointer-events-none" />
             <div className="relative z-10 max-w-3xl">
               <span className="inline-block text-xs font-semibold uppercase tracking-[0.24em] text-[#ddaf4d] mb-3">
-                BESPOKE WEAVING & BULK SOURCING
+                BESPOKE WEAVING &amp; BULK SOURCING
               </span>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-light text-white leading-tight">
                 Require Custom Colors, GSM Weights, or Private Mill Runs?
@@ -113,9 +89,6 @@ export default function FabricsClient() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2.5 rounded-full px-6 py-3.5 bg-[#ddaf4d] hover:bg-[#f0c56c] text-neutral-950 text-xs uppercase tracking-[0.18em] font-semibold transition-all duration-300 shadow-lg shadow-[#ddaf4d]/20 hover:scale-105 cursor-pointer"
                 >
-                  {/* <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                    <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.275.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824z" />
-                  </svg> */}
                   <span>Chat on WhatsApp</span>
                 </a>
 

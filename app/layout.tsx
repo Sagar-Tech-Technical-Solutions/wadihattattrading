@@ -1,13 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "../public/pp-fragment-webfont/style.css";
 import "./globals.css";
-import { Suspense } from "react";
 import Header from "@/layouts/header";
 import Footer from "@/layouts/footer";
-import SmoothScroll from "@/layouts/smooth-scroll";
 import WhatsAppFloat from "@/components/ui/whatsapp-float";
-// import CustomCursor from "@/components/ui/custom-cursor";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -76,6 +72,16 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
       className={`h-full antialiased ${inter.variable} ${inter.className}`}
     >
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap"
+          rel="stylesheet"
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `if('scrollRestoration' in history){history.scrollRestoration='manual';}window.scrollTo(0,0);`,

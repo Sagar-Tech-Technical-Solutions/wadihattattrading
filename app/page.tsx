@@ -8,6 +8,7 @@ import MapSection from "@/components/home/map-section";
 import FaqSection from "@/components/contact/faq-section";
 import AboutHeritage from "@/components/about/about-heritage";
 import { InstagramFeed } from "@/components/home/instagram-feed";
+import BlogSection from "@/components/home/blog-section";
 
 export const metadata: Metadata = {
   title: "Wadi Hattat Trading | Wholesale Textile Trading in Dubai",
@@ -46,6 +47,7 @@ export default async function Home() {
         <InstagramFeed />
       </div>
       <FaqSection />
+      <BlogSection />
     </main>
   );
 }
